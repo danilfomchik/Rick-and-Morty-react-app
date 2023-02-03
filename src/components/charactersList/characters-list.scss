@@ -1,0 +1,9 @@
+.characters-list{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: row;
+    max-width: 1920px;
+    margin: 30px 0px;
+}

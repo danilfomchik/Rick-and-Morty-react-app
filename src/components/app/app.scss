@@ -1,0 +1,15 @@
+@import '../../style/variables.scss';
+
+.app {
+  height: 100vh;
+  text-align: center;
+  background: url($background-img);
+  background-color: #000000;
+  color: #ffffff;
+  overflow: auto;
+}
+
+.rick-and-morty__main-image{
+  width: 50vmin;
+  margin: 40px auto;
+}

@@ -1,0 +1,50 @@
+@import '../../style/variables.scss';
+
+.app-header{
+    color: #ffffff;
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 20px 0px 0px;
+    }
+
+    &__logo{
+        width: 10vmin;
+    }
+
+    &__navigation{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        &-link{
+            a{
+                text-decoration: none;
+                font-size: 22px;
+
+                &:hover{
+                    color: $hover-color;
+                }
+            }
+
+            &:nth-child(2){
+                padding: 0px 30px;
+            }
+        }
+    }
+}
+
+.navigation-link__primary{
+    color: #ffffff;
+}
+
+.navigation-link__active{
+    color: $hover-color;
+    padding: 0px 0px 5px 0px;
+    border-bottom: 3px solid;
+}
