@@ -9,7 +9,7 @@ const useApi = () => {
     const getAllCharacters = async (page = _defaultPage) => {
         const characters = await request(`${_apiBase}character?page=${page}`);
 
-        // console.log(characters);
+        console.log(characters);
 
         return characters.results.map(_transformCharacter);
     };
@@ -20,6 +20,8 @@ const useApi = () => {
             name: char.name,
             location: char.location.name,
             thumbnail: char.image,
+            species: char.species,
+            status: char.status,
         };
     };
 

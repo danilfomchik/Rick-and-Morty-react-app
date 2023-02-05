@@ -22,6 +22,8 @@ const CharactersList = () => {
     };
 
     const renderCharacters = (characters) => {
+        console.log(characters);
+
         return characters.map((char) => (
             <CharactersItem
                 key={char.id}
@@ -29,6 +31,8 @@ const CharactersList = () => {
                 name={char.name}
                 location={char.location}
                 thumbnail={char.thumbnail}
+                species={char.species}
+                status={char.status}
             />
         ));
     };

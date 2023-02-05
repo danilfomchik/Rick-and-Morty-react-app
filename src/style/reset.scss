@@ -31,10 +31,10 @@ dd {
 
 /* Выставляем основные настройки по-умолчанию для body */
 body {
-  min-height: 100vh;
-  scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
+  font-variant-ligatures: none;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  text-decoration-skip-ink: auto;
 }
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
