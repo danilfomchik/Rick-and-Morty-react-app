@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import CharactersItem from "../charactersItem/CharactersItem";
 import Spinner from "../spinner/Spinner";
@@ -9,21 +9,29 @@ import "./characters-list.scss";
 
 const CharactersList = () => {
     const [characters, setCharacters] = useState([]);
-    const [charactersPage, setCharactersPage] = useState(1);
+    const [pagesCount, setPagesCount] = useState(1);
 
-    const { loading, error, getAllCharacters } = useApi();
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const { loading, error, getAllCharacters, getAllPages } = useApi();
 
     useEffect(() => {
-        getAllCharacters(charactersPage).then(onCharactersLoaded);
-    }, [charactersPage]);
+        onCharactersLoading();
+    }, [currentPage]);
+
+    useEffect(() => {
+        getAllPages().then((pages) => setPagesCount(pages));
+    }, []);
+
+    const onCharactersLoading = () => {
+        getAllCharacters(currentPage).then(onCharactersLoaded);
+    };
 
     const onCharactersLoaded = (data) => {
         setCharacters(data);
     };
 
     const renderCharacters = (characters) => {
-        console.log(characters);
-
         return characters.map((char) => (
             <CharactersItem
                 key={char.id}
@@ -37,17 +45,42 @@ const CharactersList = () => {
         ));
     };
 
-    const spinner = loading ? <Spinner /> : null;
+    const renderPages = (pagesCount) => {
+        let pages = [];
+
+        for (let page = 0; page < pagesCount; page++) {
+            let currentPage = page + 1;
+
+            pages.push(
+                <div
+                    key={currentPage}
+                    onClick={() => setCurrentPage(currentPage)}
+                    className="characters-list__pages-page"
+                >
+                    <span>{currentPage}</span>
+                </div>
+            );
+        }
+
+        return pages;
+    };
+
+    const charCards = renderCharacters(characters);
+    const pagesBlocks = renderPages(pagesCount);
+
+    const content = !loading && charCards;
+    const spinner = loading && <Spinner />;
     const errorMessage = error && <h1>ERROR!</h1>;
 
-    const elements = renderCharacters(characters);
-
     return (
-        <div className="characters-list">
-            {errorMessage}
-            {spinner}
-            {elements}
-        </div>
+        <>
+            <div className="characters-list">
+                {errorMessage}
+                {spinner}
+                {content}
+            </div>
+            <div className="characters-list__pages">{pagesBlocks}</div>
+        </>
     );
 };
 

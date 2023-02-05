@@ -5,3 +5,9 @@ body {
   margin: 0;
   font-family: $main-font;
 }
+
+:root {
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: auto;
+    }
+}

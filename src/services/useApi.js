@@ -9,9 +9,15 @@ const useApi = () => {
     const getAllCharacters = async (page = _defaultPage) => {
         const characters = await request(`${_apiBase}character?page=${page}`);
 
-        console.log(characters);
+        // console.log(characters);
 
         return characters.results.map(_transformCharacter);
+    };
+
+    const getAllPages = async () => {
+        const characters = await request(`${_apiBase}character`);
+
+        return characters.info.pages;
     };
 
     const _transformCharacter = (char) => {
@@ -25,7 +31,7 @@ const useApi = () => {
         };
     };
 
-    return { getAllCharacters, loading, error, clearError };
+    return { getAllCharacters, getAllPages, loading, error, clearError };
 };
 
 export default useApi;
