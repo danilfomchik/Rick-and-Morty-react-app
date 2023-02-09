@@ -1,9 +1,10 @@
 import "./search-panel.scss";
 
-const SearchPanel = ({ query, setQuery }) => {
+const SearchPanel = ({ query, setQuery, searchRef }) => {
     return (
         <div className="search-panel">
             <input
+                ref={searchRef}
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}

@@ -10,7 +10,8 @@ import AppHeader from "../appHeader/AppHeader";
 
 import Spinner from "../spinner/Spinner";
 
-const CharactersPage = lazy(() => import("../pages/CharactersPage"));
+import { CharactersPage } from "../pages/CharactersPage";
+
 const EpisodesPage = lazy(() => import("../pages/EpisodesPage"));
 const LocationsPage = lazy(() => import("../pages/LocationsPage"));
 

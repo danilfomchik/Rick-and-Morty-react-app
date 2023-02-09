@@ -1,6 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
+
+import { CurrentPageContext } from "../pages/CharactersPage";
+import { getPageIntersection } from "../../helpers/getPageIntersection";
 
 import CharactersItem from "../charactersItem/CharactersItem";
+import PagesBlock from "../pagesBlock/PagesBlock";
 import Spinner from "../spinner/Spinner";
 
 import useApi from "../../services/useApi";
@@ -9,19 +13,13 @@ import "./characters-list.scss";
 
 const CharactersList = () => {
     const [characters, setCharacters] = useState([]);
-    const [pagesCount, setPagesCount] = useState(1);
+    const { currentPage, allPagesCount } = useContext(CurrentPageContext);
 
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const { loading, error, getAllCharacters, getAllPages } = useApi();
+    const { loading, error, getAllCharacters } = useApi();
 
     useEffect(() => {
         onCharactersLoading();
     }, [currentPage]);
-
-    useEffect(() => {
-        getAllPages().then((pages) => setPagesCount(pages));
-    }, []);
 
     const onCharactersLoading = () => {
         getAllCharacters(currentPage).then(onCharactersLoaded);
@@ -45,28 +43,7 @@ const CharactersList = () => {
         ));
     };
 
-    const renderPages = (pagesCount) => {
-        let pages = [];
-
-        for (let page = 0; page < pagesCount; page++) {
-            let currentPage = page + 1;
-
-            pages.push(
-                <div
-                    key={currentPage}
-                    onClick={() => setCurrentPage(currentPage)}
-                    className="characters-list__pages-page"
-                >
-                    <span>{currentPage}</span>
-                </div>
-            );
-        }
-
-        return pages;
-    };
-
     const charCards = renderCharacters(characters);
-    const pagesBlocks = renderPages(pagesCount);
 
     const content = !loading && charCards;
     const spinner = loading && <Spinner />;
@@ -79,7 +56,8 @@ const CharactersList = () => {
                 {spinner}
                 {content}
             </div>
-            <div className="characters-list__pages">{pagesBlocks}</div>
+
+            <PagesBlock allPagesCount={allPagesCount} />
         </>
     );
 };
