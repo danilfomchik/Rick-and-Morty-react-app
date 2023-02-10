@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import { CurrentPageContext } from "../pages/CharactersPage";
 import { getPageIntersection } from "../../helpers/getPageIntersection";

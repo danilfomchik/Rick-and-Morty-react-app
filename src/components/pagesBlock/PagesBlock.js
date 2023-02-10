@@ -39,19 +39,21 @@ const PagesBlock = ({ allPagesCount }) => {
 
     return (
         <div className="characters-list__pages">
-            <div
+            <button
                 onClick={decreaseCurrentPage}
-                className="characters-list__pages-page"
+                className="button characters-list__pages-page"
+                disabled={currentPage === 1}
             >
                 <p>Prev</p>
-            </div>
+            </button>
             {pagesBlocks}
-            <div
+            <button
                 onClick={increaseCurrentPage}
-                className="characters-list__pages-page"
+                className="button characters-list__pages-page"
+                disabled={currentPage === allPagesCount}
             >
                 <p>Next</p>
-            </div>
+            </button>
 
             {/* <br />
             {getPageIntersection(pagesBlocks, currentPage)} */}

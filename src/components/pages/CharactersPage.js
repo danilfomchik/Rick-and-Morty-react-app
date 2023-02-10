@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useRef } from "react";
 
 import CharactersList from "../charactersList/CharactersList";
 import SearchPanel from "../searchPanel/SearchPanel";
@@ -13,6 +13,8 @@ export const CharactersPage = () => {
 
     // осторожно!!! эта часть кода, возможно - костыль
     const [allCharactersPages, setAllCharactersPages] = useState(1);
+    const currentPage = useCurrentPage(allCharactersPages);
+    const searchRef = useRef(null);
 
     const { getAllPages } = useApi();
 
@@ -23,13 +25,22 @@ export const CharactersPage = () => {
     }, []);
     // осторожно!!! эта часть кода, возможно - костыль
 
-    const currentPage = useCurrentPage(allCharactersPages);
+    useEffect(() => {
+        searchRef.current.scrollIntoView({
+            block: "center",
+            // behavior: "smooth",
+        });
+    }, [currentPage.currentPage]);
 
     return (
         <div className="characters">
             <h1>Characters</h1>
 
-            <SearchPanel query={query} setQuery={setQuery} />
+            <SearchPanel
+                searchRef={searchRef}
+                query={query}
+                setQuery={setQuery}
+            />
 
             <CurrentPageContext.Provider value={currentPage}>
                 <CharactersList />
