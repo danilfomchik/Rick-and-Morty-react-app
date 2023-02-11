@@ -69,7 +69,7 @@ const CharactersList = ({ query, scrollRef }) => {
             <div className="characters-list">
                 {errorMessage}
                 {spinner}
-                {content}
+                {/* {content} */}
             </div>
 
             <PagesBlock allPagesCount={allPagesCount} controls={currentPage} />
