@@ -1,47 +1,62 @@
-import { useEffect, useState, useContext } from "react";
-
-import { CurrentPageContext } from "../pages/CharactersPage";
-import { getPageIntersection } from "../../helpers/getPageIntersection";
+import { useEffect, useState, useCallback } from "react";
 
 import CharactersItem from "../charactersItem/CharactersItem";
 import PagesBlock from "../pagesBlock/PagesBlock";
 import Spinner from "../spinner/Spinner";
 
 import useApi from "../../services/useApi";
+import { useCurrentPage } from "../../hooks/useCurrentPage";
 
 import "./characters-list.scss";
 
-const CharactersList = () => {
+const CharactersList = ({ query, scrollRef }) => {
     const [characters, setCharacters] = useState([]);
-    const { currentPage, allPagesCount } = useContext(CurrentPageContext);
+    const { loading, error, getAllCharacters, getAllPages } = useApi();
 
-    const { loading, error, getAllCharacters } = useApi();
+    // осторожно!!! эта часть кода, возможно - костыль
+    const [allPagesCount, setAllPagesCount] = useState(1);
+    const currentPage = useCurrentPage(allPagesCount);
 
     useEffect(() => {
+        getAllPages().then((pages) => {
+            setAllPagesCount(pages);
+        });
+    }, []);
+    // осторожно!!! эта часть кода, возможно - костыль
+
+    useEffect(() => {
+        scrollRef.current.scrollIntoView({
+            block: "center",
+            behavior: "smooth",
+        });
+
         onCharactersLoading();
-    }, [currentPage]);
+    }, [currentPage.currentPage]);
 
     const onCharactersLoading = () => {
-        getAllCharacters(currentPage).then(onCharactersLoaded);
+        getAllCharacters(currentPage.currentPage).then(onCharactersLoaded);
     };
 
     const onCharactersLoaded = (data) => {
         setCharacters(data);
     };
 
-    const renderCharacters = (characters) => {
-        return characters.map((char) => (
-            <CharactersItem
-                key={char.id}
-                id={char.id}
-                name={char.name}
-                location={char.location}
-                thumbnail={char.thumbnail}
-                species={char.species}
-                status={char.status}
-            />
-        ));
-    };
+    const renderCharacters = useCallback(
+        (characters) => {
+            return characters.map((char) => (
+                <CharactersItem
+                    key={char.id}
+                    id={char.id}
+                    name={char.name}
+                    location={char.location}
+                    thumbnail={char.thumbnail}
+                    species={char.species}
+                    status={char.status}
+                />
+            ));
+        },
+        [characters]
+    );
 
     const charCards = renderCharacters(characters);
 
@@ -57,7 +72,7 @@ const CharactersList = () => {
                 {content}
             </div>
 
-            <PagesBlock allPagesCount={allPagesCount} />
+            <PagesBlock allPagesCount={allPagesCount} controls={currentPage} />
         </>
     );
 };
