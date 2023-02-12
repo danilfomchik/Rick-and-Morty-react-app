@@ -11,18 +11,13 @@ import "./characters-list.scss";
 
 const CharactersList = ({ query, scrollRef }) => {
     const [characters, setCharacters] = useState([]);
-    const { loading, error, getAllCharacters, getAllPages } = useApi();
-
-    // осторожно!!! эта часть кода, возможно - костыль
     const [allPagesCount, setAllPagesCount] = useState(1);
-    const currentPage = useCurrentPage(allPagesCount);
+    const currentPageInfo = useCurrentPage(allPagesCount);
 
-    useEffect(() => {
-        getAllPages().then((pages) => {
-            setAllPagesCount(pages);
-        });
-    }, []);
-    // осторожно!!! эта часть кода, возможно - костыль
+    const { currentPage, setNewPage } = currentPageInfo;
+
+    const { loading, error, getAllCharacters, getCharacterByName, clearError } =
+        useApi();
 
     useEffect(() => {
         scrollRef.current.scrollIntoView({
@@ -30,15 +25,28 @@ const CharactersList = ({ query, scrollRef }) => {
             behavior: "smooth",
         });
 
-        onCharactersLoading();
-    }, [currentPage.currentPage]);
+        clearError();
 
-    const onCharactersLoading = () => {
-        getAllCharacters(currentPage.currentPage).then(onCharactersLoaded);
+        if (error) {
+            setAllPagesCount(1);
+        }
+
+        // применить useTransition
+        if (query) {
+            onCharactersLoading(() => getCharacterByName(query, currentPage));
+        } else {
+            setNewPage(1);
+            onCharactersLoading(() => getAllCharacters(currentPage));
+        }
+    }, [currentPage, query]);
+
+    const onCharactersLoading = (getDataFunc, param) => {
+        getDataFunc(param).then(onCharactersLoaded);
     };
 
     const onCharactersLoaded = (data) => {
-        setCharacters(data);
+        setCharacters(data.result);
+        setAllPagesCount(data.pages);
     };
 
     const renderCharacters = useCallback(
@@ -60,7 +68,7 @@ const CharactersList = ({ query, scrollRef }) => {
 
     const charCards = renderCharacters(characters);
 
-    const content = !loading && charCards;
+    const content = !loading && !error && charCards;
     const spinner = loading && <Spinner />;
     const errorMessage = error && <h1>ERROR!</h1>;
 
@@ -69,10 +77,13 @@ const CharactersList = ({ query, scrollRef }) => {
             <div className="characters-list">
                 {errorMessage}
                 {spinner}
-                {/* {content} */}
+                {content}
             </div>
 
-            <PagesBlock allPagesCount={allPagesCount} controls={currentPage} />
+            <PagesBlock
+                allPagesCount={allPagesCount}
+                controls={currentPageInfo}
+            />
         </>
     );
 };

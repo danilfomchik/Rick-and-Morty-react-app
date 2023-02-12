@@ -9,13 +9,25 @@ const useApi = () => {
     const getAllCharacters = async (page = _defaultPage) => {
         const characters = await request(`${_apiBase}character?page=${page}`);
 
-        return characters.results.map(_transformCharacter);
+        // console.log(characters);
+
+        return {
+            result: characters.results.map(_transformCharacter),
+            pages: characters.info.pages,
+        };
     };
 
-    const getAllPages = async () => {
-        const characters = await request(`${_apiBase}character`);
+    const getCharacterByName = async (query = "", currentPage = 1) => {
+        const characters = await request(
+            `${_apiBase}character/?page=${currentPage}&name=${query}`
+        );
 
-        return characters.info.pages;
+        console.log(characters);
+
+        return {
+            result: characters.results.map(_transformCharacter),
+            pages: characters.info.pages,
+        };
     };
 
     const _transformCharacter = (char) => {
@@ -29,7 +41,13 @@ const useApi = () => {
         };
     };
 
-    return { getAllCharacters, getAllPages, loading, error, clearError };
+    return {
+        getAllCharacters,
+        getCharacterByName,
+        loading,
+        error,
+        clearError,
+    };
 };
 
 export default useApi;
