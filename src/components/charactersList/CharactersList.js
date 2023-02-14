@@ -1,23 +1,20 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 
 import CharactersItem from "../charactersItem/CharactersItem";
 import PagesBlock from "../pagesBlock/PagesBlock";
 import Spinner from "../spinner/Spinner";
 
 import useApi from "../../services/useApi";
-import { useCurrentPage } from "../../hooks/useCurrentPage";
 
 import "./characters-list.scss";
 
-const CharactersList = ({ query, scrollRef }) => {
+const CharactersList = ({ query, scrollRef, currentPageControls }) => {
     const [characters, setCharacters] = useState([]);
-    const [allPagesCount, setAllPagesCount] = useState(1);
-    const currentPageInfo = useCurrentPage(allPagesCount);
-
-    const { currentPage, setNewPage } = currentPageInfo;
-
     const { loading, error, getAllCharacters, getCharacterByName, clearError } =
         useApi();
+
+    const { allPagesCount, setAllPagesCount, currentPage } =
+        currentPageControls;
 
     useEffect(() => {
         scrollRef.current.scrollIntoView({
@@ -27,15 +24,10 @@ const CharactersList = ({ query, scrollRef }) => {
 
         clearError();
 
-        if (error) {
-            setAllPagesCount(1);
-        }
-
         // применить useTransition
         if (query) {
             onCharactersLoading(() => getCharacterByName(query, currentPage));
         } else {
-            setNewPage(1);
             onCharactersLoading(() => getAllCharacters(currentPage));
         }
     }, [currentPage, query]);
@@ -70,7 +62,7 @@ const CharactersList = ({ query, scrollRef }) => {
 
     const content = !loading && !error && charCards;
     const spinner = loading && <Spinner />;
-    const errorMessage = error && <h1>ERROR!</h1>;
+    const errorMessage = error && <h1>Nothing to show!</h1>;
 
     return (
         <>
@@ -80,10 +72,12 @@ const CharactersList = ({ query, scrollRef }) => {
                 {content}
             </div>
 
-            <PagesBlock
-                allPagesCount={allPagesCount}
-                controls={currentPageInfo}
-            />
+            {!error && (
+                <PagesBlock
+                    allPagesCount={allPagesCount}
+                    controls={currentPageControls}
+                />
+            )}
         </>
     );
 };

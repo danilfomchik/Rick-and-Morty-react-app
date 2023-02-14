@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext, memo } from "react";
 import { getPageIntersection } from "../../helpers/getPageIntersection";
 
+import { useCurrentPage } from "../../hooks/useCurrentPage";
+
 import "./pages-block.scss";
 
 function arePropsEqual(prevProps, nextProps) {
