@@ -1,9 +1,12 @@
 import { useState, createContext, useRef } from "react";
 
-import { useCurrentPage } from "../../hooks/useCurrentPage";
+import { useCurrentPage } from "../../../hooks/useCurrentPage";
 
-import CharactersList from "../charactersList/CharactersList";
-import SearchPanel from "../searchPanel/SearchPanel";
+import CharactersList from "../../charactersList/CharactersList";
+import SearchPanel from "../../searchPanel/SearchPanel";
+import FilterPanel from "../../filterPanel/FilterPanel";
+
+import "./characters-page.scss";
 
 export const CurrentPageContext = createContext();
 
@@ -15,7 +18,7 @@ export const CharactersPage = () => {
 
     return (
         <div className="characters">
-            <h1>Characters</h1>
+            <h1 className="characters__title page-title">Characters</h1>
 
             <div className="characters__search-panel">
                 <SearchPanel
@@ -24,6 +27,8 @@ export const CharactersPage = () => {
                     query={query}
                     setQuery={setQuery}
                 />
+
+                <FilterPanel />
             </div>
 
             <CharactersList

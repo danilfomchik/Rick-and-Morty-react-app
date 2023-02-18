@@ -5,14 +5,16 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    padding: 20px 0px 30px;
 
     &-page{
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        // width: 40px;
-        box-shadow: 0px 0px 8px 2px $hover-color;
+        box-shadow: 0px 0px 8px 2px #2f362f;
+        background: #2f362f;
+        color: #ffffff;
         border-radius: 11px;
         margin: 10px;
         flex: 1 1;
@@ -25,12 +27,14 @@
         }
 
         &:hover{
-            background-color: $hover-color;
+            color: #2f362f;
+            background-color: #ffffff;
         }
 
         &.active{
-            color: #000000;
-            background-color: $hover-color;
+            color: #2f362f;
+            background-color: #ffffff;
+            pointer-events: none;
         }
     }
 }

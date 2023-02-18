@@ -1,4 +1,10 @@
-$main-font: 'Averia Sans Libre', cursive;
-$background-img: '../../resources/background.svg';
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
+// $main-font: 'Averia Sans Libre', cursive;
+
+$main-font: 'Ubuntu', sans-serif;
+$background-img: '../../resources/background.svg';
+// $background-img: '../../resources/background-planet.png';
+
+$text-color: #2f362f;
 $hover-color: #61de2a;

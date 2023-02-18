@@ -1,13 +1,14 @@
 .button{
-    background: transparent;
+    background: #2f362f;;
     color: #ffffff;
     flex-basis: 100%;
     border: none;
 
     &:disabled{
+        color: #2f362f;;
         cursor: auto;
-        background-color: transparent;
+        background-color: #ffffff;
         box-shadow: none;
-        border: 3px solid #696969;
+        border: 3px solid #2f362f;
     }
 }

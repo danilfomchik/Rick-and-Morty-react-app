@@ -1,50 +1,61 @@
 @import '../../style/variables.scss';
 
 .app-header{
-    color: #ffffff;
+    // color: #ffffff;
 
     &__container {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        align-items: stretch;
         justify-content: space-between;
-
-        padding: 20px 0px 0px;
+        flex-direction: column;
+        
+        padding: 10px 0px 0px;
     }
 
     &__logo{
-        width: 10vmin;
+        width: 35vmin;
     }
 
     &__navigation{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-between;
+        align-items: center;
 
         &-link{
-            a{
-                text-decoration: none;
-                font-size: 22px;
+            flex: 1;
+            color: $text-color;
+            // padding: 0px 10px;
 
-                &:hover{
-                    color: $hover-color;
-                }
+            a{
+                font-size: 20px;
+                color: inherit;
+                text-decoration: none;
+                border-radius: 25px;
+                padding: 8px 20px;
             }
 
-            &:nth-child(2){
+            &:nth-child(3){
                 padding: 0px 30px;
             }
         }
     }
 }
 
-.navigation-link__primary{
-    color: #ffffff;
+a.app-header__navigation-link__primary{
+    &:hover{
+        background-color: transparent;
+        border: 3px solid $text-color;
+    }
 }
 
-.navigation-link__active{
-    color: $hover-color;
-    padding: 0px 0px 5px 0px;
-    border-bottom: 3px solid;
+a.app-header__navigation-link__active{
+    color: #ffffff;
+    background-color: $text-color;
+    
+    &:hover{
+        color: #ffffff;
+        background-color: $text-color;
+    }
 }

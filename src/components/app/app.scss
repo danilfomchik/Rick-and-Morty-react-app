@@ -4,12 +4,55 @@
   height: 100vh;
   text-align: center;
   background: url($background-img);
-  background-color: #000000;
+  // background-color: #000000;
   color: #ffffff;
   overflow: auto;
 }
 
+.salutation{
+  display: flex;
+  color: $text-color;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  padding: 70px 0px;
+
+  &-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    flex-basis: 50%;
+
+    padding: 0px 0px 0px 50px;
+
+    h1 {
+      color: #6c6e6c;
+      font-size: 50px;
+    }
+
+    p{
+      font-size: 18px;
+      border-left: 3px solid $text-color;
+      padding: 0px 0px 0px 15px;
+      margin: 25px 0px 0px;
+    }
+  }
+
+  &-image{
+    flex-basis: 50%;
+  }
+}
+
+.main-container{
+  .page-title{
+    color: $text-color;
+  }
+}
+
 .rick-and-morty__main-image{
   width: 50vmin;
-  margin: 40px auto;
+  margin: 0 auto;
 }
