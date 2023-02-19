@@ -4,7 +4,7 @@ import { useCurrentPage } from "../../../hooks/useCurrentPage";
 
 import CharactersList from "../../charactersList/CharactersList";
 import SearchPanel from "../../searchPanel/SearchPanel";
-// import FilterPanel from "../../filterPanel/FilterPanel";
+import FilterPanel from "../../filterPanel/FilterPanel";
 
 import "./characters-page.scss";
 
@@ -20,7 +20,7 @@ export const CharactersPage = () => {
         <div className="characters">
             <h1 className="characters__title page-title">Characters</h1>
 
-            <div className="characters__search-panel">
+            <div className="characters__filter-panel">
                 <SearchPanel
                     currentPageControls={currentPageControls}
                     searchRef={searchRef}
@@ -28,7 +28,7 @@ export const CharactersPage = () => {
                     setQuery={setQuery}
                 />
 
-                {/* <FilterPanel /> */}
+                <FilterPanel />
             </div>
 
             <CharactersList

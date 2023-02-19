@@ -1,0 +1,88 @@
+.accordion-container{
+    color: #2f362f;
+    padding: 15px 50px;
+    margin: 15px;
+    border: 2px solid #61de2a;
+    border-radius: 15px;
+    box-shadow: 0px 0px 6px 1px #61de2a;
+    background-color: rgba(255, 255, 255, 0.57);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    flex: 1;
+    cursor: pointer;
+
+    // transition: all 0.4s ease-out;
+
+    &__title{
+        position: relative;
+        font-size: 20px;
+        padding: 0px 20px 0px 0px;
+
+        transition: all 0.4s ease;
+        // transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
+
+        &::after{
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+
+            background-image: url('../../resources/down-arrow-2.png');
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            transition: all 0.4s ease-out;
+            // transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
+        }
+    }
+
+    &__content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+
+        opacity: 0;
+        max-height: 0;
+        overflow-y: hidden;
+        // transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
+        
+        transition: all 0.4s ease-out;
+    }
+
+    &.open{
+        .accordion-container__title{
+            &::after{
+               transform: translateY(-50%) rotate(180deg);
+            }
+        }
+    
+        .accordion-container__content{
+            opacity: 1;
+            max-height: 1000px;
+        }
+    }
+}
+
+.filter-button{
+    background: #ffffff;
+    color: #2f362f;
+    border: 1px solid #2f362f;
+    padding: 6px;
+    margin: 5px 0px;
+    border-radius: 5px;
+
+    &:hover{
+        background: #2f362f;
+        color: #ffffff;
+    }
+
+    &.active{
+        background: #2f362f;
+        color: #ffffff;
+    }
+}
