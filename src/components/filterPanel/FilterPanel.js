@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import Accordion from "../accordion/Accordion";
 
@@ -7,13 +7,16 @@ import "./filter-panel.scss";
 const FilterPanel = () => {
     const [accordions, setAccordions] = useState([
         {
+            id: 0,
             title: "Status",
-            category: ["alive", "dead", "unknown"],
+            categories: ["alive", "dead", "unknown"],
+            currentCategory: "",
             open: false,
         },
         {
+            id: 1,
             title: "Species",
-            category: [
+            categories: [
                 "Human",
                 "Alien",
                 "Humanoid",
@@ -26,21 +29,17 @@ const FilterPanel = () => {
                 "Cronenberg",
                 "Planet",
             ],
+            currentCategory: "",
             open: false,
         },
         {
+            id: 2,
             title: "Gender",
-            category: ["female", "male", "genderless", "unknown"],
+            categories: ["female", "male", "genderless", "unknown"],
+            currentCategory: "",
             open: false,
         },
     ]);
-
-    // сделать массив с обьктами, в каждом будет id и категория.
-    // пример:
-    // id: 0 - category: 'alive'
-    // id: 1 - category: ''
-    // id: 2 - category: 'male'
-    const [currentFilterParam, setCurrentFilterParam] = useState(null);
 
     const toggleAccordion = (e, index) => {
         // e.stopPropagation();
@@ -66,10 +65,10 @@ const FilterPanel = () => {
                 <Accordion
                     id={i}
                     key={i}
+                    accordions={accordions}
                     accordion={accordion}
                     toggleAccordion={toggleAccordion}
-                    currentFilterParam={currentFilterParam}
-                    setCurrentFilterParam={setCurrentFilterParam}
+                    setAccordions={setAccordions}
                 />
             ))}
         </div>

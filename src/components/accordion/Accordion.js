@@ -1,15 +1,23 @@
-import { useState } from "react";
-
 import "./accordion.scss";
 
 const Accordion = ({
     id,
     accordion,
     toggleAccordion,
-    currentFilterParam,
-    setCurrentFilterParam,
+    accordions,
+    setAccordions,
 }) => {
-    // при переключении активной категории оперировать id аккордеона, чтобы категория относлась к конкретному аккордеону
+    const onCurrentCategoryChange = (accordiontId, currentCategory) => {
+        setAccordions(
+            accordions.map((accordion) => {
+                if (accordion.id === accordiontId) {
+                    return { ...accordion, currentCategory };
+                } else {
+                    return accordion;
+                }
+            })
+        );
+    };
 
     return (
         <div
@@ -18,16 +26,16 @@ const Accordion = ({
         >
             <div className="accordion-container__title">{accordion.title}</div>
             <div className="accordion-container__content">
-                {accordion.category.map((category, i) => (
+                {accordion.categories.map((category, i) => (
                     <button
                         className={`button filter-button${
-                            currentFilterParam === category.toLowerCase()
+                            accordion.currentCategory === category
                                 ? " active"
                                 : ""
                         }`}
-                        onClick={() =>
-                            setCurrentFilterParam(category.toLowerCase())
-                        }
+                        onClick={() => {
+                            onCurrentCategoryChange(accordion.id, category);
+                        }}
                         data-category={category.toLowerCase()}
                         key={i}
                     >
