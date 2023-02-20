@@ -8,10 +8,15 @@ import useApi from "../../services/useApi";
 
 import "./characters-list.scss";
 
-const CharactersList = ({ query, scrollRef, currentPageControls }) => {
+const CharactersList = ({
+    query,
+    scrollRef,
+    currentPageControls,
+    accordions,
+    setAccordions,
+}) => {
     const [characters, setCharacters] = useState([]);
-    const { loading, error, getAllCharacters, getCharacterByName, clearError } =
-        useApi();
+    const { loading, error, getCharacters, clearError } = useApi();
 
     const { allPagesCount, setAllPagesCount, currentPage } =
         currentPageControls;
@@ -24,12 +29,10 @@ const CharactersList = ({ query, scrollRef, currentPageControls }) => {
 
         clearError();
 
+        // перебирать массив аккордеонов, вытягивать currentCategory и помещать в getCharacters на нужное место
+
         // применить useTransition
-        if (query) {
-            onCharactersLoading(() => getCharacterByName(query, currentPage));
-        } else {
-            onCharactersLoading(() => getAllCharacters(currentPage));
-        }
+        onCharactersLoading(() => getCharacters({ query, currentPage }));
     }, [currentPage, query]);
 
     const onCharactersLoading = (getDataFunc, param) => {

@@ -4,20 +4,16 @@ const useApi = () => {
     const { loading, request, error, clearError } = useHttp();
 
     const _apiBase = "https://rickandmortyapi.com/api/";
-    const _defaultPage = 1;
 
-    const getAllCharacters = async (page = _defaultPage) => {
-        const characters = await request(`${_apiBase}character?page=${page}`);
-
-        return {
-            result: characters.results.map(_transformCharacter),
-            pages: characters.info.pages,
-        };
-    };
-
-    const getCharacterByName = async (query = "", currentPage = 1) => {
+    const getCharacters = async ({
+        query = "",
+        status = "",
+        gender = "",
+        species = "",
+        currentPage = 1,
+    }) => {
         const characters = await request(
-            `${_apiBase}character/?page=${currentPage}&name=${query}`
+            `${_apiBase}character/?page=${currentPage}&name=${query}&status=${status}&gender=${gender}&species=${species}`
         );
 
         return {
@@ -38,8 +34,7 @@ const useApi = () => {
     };
 
     return {
-        getAllCharacters,
-        getCharacterByName,
+        getCharacters,
         loading,
         error,
         clearError,

@@ -4,21 +4,8 @@ const Accordion = ({
     id,
     accordion,
     toggleAccordion,
-    accordions,
-    setAccordions,
+    onCurrentCategoryChange,
 }) => {
-    const onCurrentCategoryChange = (accordiontId, currentCategory) => {
-        setAccordions(
-            accordions.map((accordion) => {
-                if (accordion.id === accordiontId) {
-                    return { ...accordion, currentCategory };
-                } else {
-                    return accordion;
-                }
-            })
-        );
-    };
-
     return (
         <div
             onClick={(e) => toggleAccordion(e, id)}

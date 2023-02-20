@@ -14,6 +14,42 @@ export const CharactersPage = () => {
     const [query, setQuery] = useState("");
     const searchRef = useRef(null);
 
+    const [accordions, setAccordions] = useState([
+        {
+            id: 0,
+            title: "Status",
+            categories: ["alive", "dead", "unknown"],
+            currentCategory: "",
+            open: false,
+        },
+        {
+            id: 1,
+            title: "Species",
+            categories: [
+                "Human",
+                "Alien",
+                "Humanoid",
+                "Poopybutthole",
+                "Mythological",
+                "Unknown",
+                "Animal",
+                "Disease",
+                "Robot",
+                "Cronenberg",
+                "Planet",
+            ],
+            currentCategory: "",
+            open: false,
+        },
+        {
+            id: 2,
+            title: "Gender",
+            categories: ["female", "male", "genderless", "unknown"],
+            currentCategory: "",
+            open: false,
+        },
+    ]);
+
     const currentPageControls = useCurrentPage();
 
     return (
@@ -28,13 +64,18 @@ export const CharactersPage = () => {
                     setQuery={setQuery}
                 />
 
-                <FilterPanel />
+                <FilterPanel
+                    accordions={accordions}
+                    setAccordions={setAccordions}
+                />
             </div>
 
             <CharactersList
                 currentPageControls={currentPageControls}
                 query={query}
                 scrollRef={searchRef}
+                accordions={accordions}
+                setAccordions={setAccordions}
             />
         </div>
     );
