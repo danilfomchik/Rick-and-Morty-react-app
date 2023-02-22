@@ -29,11 +29,27 @@ const CharactersList = ({
 
         clearError();
 
-        // перебирать массив аккордеонов, вытягивать currentCategory и помещать в getCharacters на нужное место
-
         // применить useTransition
-        onCharactersLoading(() => getCharacters({ query, currentPage }));
-    }, [currentPage, query]);
+        onCharactersLoading(() =>
+            getCharacters({
+                query,
+                currentPage,
+                // оптимизировать с помощью цикла
+                status: accordions[0].currentCategory,
+                species: accordions[1].currentCategory,
+                gender: accordions[2].currentCategory,
+                // оптимизировать с помощью цикла
+            })
+        );
+        // вызывать эффект не при изменении accordions, а при изменении свойства currentCategory
+    }, [
+        currentPage,
+        query,
+        accordions[0].currentCategory,
+        accordions[1].currentCategory,
+        accordions[2].currentCategory,
+        // accordions
+    ]);
 
     const onCharactersLoading = (getDataFunc, param) => {
         getDataFunc(param).then(onCharactersLoaded);

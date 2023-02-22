@@ -65,6 +65,7 @@ export const CharactersPage = () => {
                 />
 
                 <FilterPanel
+                    currentPageControls={currentPageControls}
                     accordions={accordions}
                     setAccordions={setAccordions}
                 />
