@@ -13,7 +13,6 @@ const CharactersList = ({
     scrollRef,
     currentPageControls,
     accordions,
-    setAccordions,
 }) => {
     const [characters, setCharacters] = useState([]);
     const { loading, error, getCharacters, clearError } = useApi();

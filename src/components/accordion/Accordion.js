@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./accordion.scss";
 
 const Accordion = ({
@@ -6,16 +6,13 @@ const Accordion = ({
     accordion,
     toggleAccordion,
     onCurrentCategoryChange,
-    useFilterCategory,
 }) => {
     const [accordionTitle, setAccordionTitle] = useState(accordion.title);
 
-    const { onCategoryCheck, currentCategory } = useFilterCategory;
-
     const onCategoryClick = (e, category) => {
         toggleAccordion(e, id);
-        onCurrentCategoryChange(e, accordion.id, currentCategory);
-        setAccordionTitle(category);
+        onCurrentCategoryChange(e, accordion.id, category);
+        // setAccordionTitle(category);
     };
 
     return (
@@ -33,7 +30,6 @@ const Accordion = ({
                                 : ""
                         }`}
                         onClick={(e) => {
-                            onCategoryCheck(category);
                             onCategoryClick(e, category);
                         }}
                         data-category={category.toLowerCase()}

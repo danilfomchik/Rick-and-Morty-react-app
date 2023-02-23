@@ -1,7 +1,6 @@
 import { useState, createContext, useRef } from "react";
 
 import { useCurrentPage } from "../../../hooks/useCurrentPage";
-import useFilter from "../../../hooks/useFilter";
 
 import CharactersList from "../../charactersList/CharactersList";
 import SearchPanel from "../../searchPanel/SearchPanel";
@@ -68,7 +67,6 @@ export const CharactersPage = () => {
                 <FilterPanel
                     currentPageControls={currentPageControls}
                     accordions={accordions}
-                    // useFilterCategory={useFilterCategory}
                     setAccordions={setAccordions}
                 />
             </div>
