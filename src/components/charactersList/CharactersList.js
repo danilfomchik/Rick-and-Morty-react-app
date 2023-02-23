@@ -41,7 +41,6 @@ const CharactersList = ({
                 // оптимизировать с помощью цикла
             })
         );
-        // вызывать эффект не при изменении accordions, а при изменении свойства currentCategory
     }, [
         currentPage,
         query,
