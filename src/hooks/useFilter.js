@@ -1,22 +1,19 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const useFilter = () => {
-    const [currentCategory, setCurrentCategory] = useState("");
+    const currentCategory = useRef("");
 
-    const onCategoryCheck = (category) => {
-        if (currentCategory === category) {
-            setCurrentCategory("");
+    const onCategoryCheck = (newCategory) => {
+        if (currentCategory.current === newCategory) {
+            currentCategory.current = "";
         } else {
-            setCurrentCategory(category);
+            currentCategory.current = newCategory;
         }
-
-        // console.log("currentCategory-->", currentCategory);
     };
 
     return {
         onCategoryCheck,
         currentCategory,
-        setCurrentCategory,
     };
 };
 

@@ -13,6 +13,7 @@ const CharactersList = ({
     scrollRef,
     currentPageControls,
     accordions,
+    accordionsCategories,
 }) => {
     const [characters, setCharacters] = useState([]);
     const { loading, error, getCharacters, clearError } = useApi();
@@ -40,14 +41,7 @@ const CharactersList = ({
                 // оптимизировать с помощью цикла
             })
         );
-    }, [
-        currentPage,
-        query,
-        accordions[0].currentCategory,
-        accordions[1].currentCategory,
-        accordions[2].currentCategory,
-        // accordions
-    ]);
+    }, [currentPage, query, ...accordionsCategories]);
 
     const onCharactersLoading = (getDataFunc, param) => {
         getDataFunc(param).then(onCharactersLoaded);

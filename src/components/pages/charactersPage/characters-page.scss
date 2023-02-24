@@ -1,3 +1,21 @@
+@import '../../../style/variables.scss';
+
 .characters__title{
     color: #6c6e6c;
+}
+
+.filter-panel__clear-btn{
+    color: $text-color;
+    padding: 30px 0px 0px;
+
+    span{
+        // padding: 5px 10px;
+        font-size: 25px;
+        background-color: rgba(255, 255, 255);
+        // background-color: rgba(255, 255, 255, 0.57);
+        // -webkit-backdrop-filter: blur(4px);
+        // backdrop-filter: blur(4px);
+        cursor: pointer;
+        text-decoration: underline;
+    }
 }

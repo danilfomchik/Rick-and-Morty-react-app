@@ -52,6 +52,19 @@ export const CharactersPage = () => {
 
     const currentPageControls = useCurrentPage();
 
+    const onClearFilters = () => {
+        setAccordions(
+            accordions.map((accordion) => {
+                return {
+                    ...accordion,
+                    currentCategory: "",
+                };
+            })
+        );
+
+        currentPageControls.resetCurrentPage();
+    };
+
     return (
         <div className="characters">
             <h1 className="characters__title page-title">Characters</h1>
@@ -63,6 +76,10 @@ export const CharactersPage = () => {
                     query={query}
                     setQuery={setQuery}
                 />
+
+                <div className="filter-panel__clear-btn">
+                    <span onClick={onClearFilters}>Clear</span>
+                </div>
 
                 <FilterPanel
                     currentPageControls={currentPageControls}
@@ -76,6 +93,9 @@ export const CharactersPage = () => {
                 query={query}
                 scrollRef={searchRef}
                 accordions={accordions}
+                accordionsCategories={accordions.map(
+                    (accordion) => accordion.currentCategory
+                )}
                 setAccordions={setAccordions}
             />
         </div>

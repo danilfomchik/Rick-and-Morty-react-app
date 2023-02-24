@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+
+import useFilter from "../../hooks/useFilter";
+
 import "./accordion.scss";
 
 const Accordion = ({
@@ -7,12 +10,17 @@ const Accordion = ({
     toggleAccordion,
     onCurrentCategoryChange,
 }) => {
-    const [accordionTitle, setAccordionTitle] = useState(accordion.title);
+    // const [accordionTitle, setAccordionTitle] = useState(accordion.title);
+    const { currentCategory, onCategoryCheck } = useFilter();
+
+    // console.log(accordion);
 
     const onCategoryClick = (e, category) => {
+        onCategoryCheck(category);
         toggleAccordion(e, id);
-        onCurrentCategoryChange(e, accordion.id, category);
-        // setAccordionTitle(category);
+        onCurrentCategoryChange(e, accordion.id, currentCategory.current);
+
+        // setAccordionTitle(currentCategory.current);
     };
 
     return (
@@ -20,7 +28,11 @@ const Accordion = ({
             onClick={(e) => toggleAccordion(e, id)}
             className={`accordion-container${accordion.open ? " open" : ""}`}
         >
-            <div className="accordion-container__title">{accordionTitle}</div>
+            <div className="accordion-container__title">
+                {accordion.currentCategory === ""
+                    ? accordion.title
+                    : accordion.currentCategory}
+            </div>
             <div className="accordion-container__content">
                 {accordion.categories.map((category, i) => (
                     <button

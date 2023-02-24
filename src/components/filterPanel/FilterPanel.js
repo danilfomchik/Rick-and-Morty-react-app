@@ -1,6 +1,6 @@
-import { useState, memo, useEffect } from "react";
+import { useState, memo, useEffect, useRef } from "react";
 
-// import useFilter from "../../hooks/useFilter";
+import useFilter from "../../hooks/useFilter";
 
 import Accordion from "../accordion/Accordion";
 
@@ -31,11 +31,10 @@ const FilterPanel = memo(
             setAccordions(
                 accordions.map((accordion) => {
                     if (accordion.id === accordiontId) {
-                        if (accordion.currentCategory === currentCategory) {
-                            return { ...accordion, currentCategory: "" };
-                        } else {
-                            return { ...accordion, currentCategory };
-                        }
+                        return {
+                            ...accordion,
+                            currentCategory,
+                        };
                     } else {
                         return accordion;
                     }
