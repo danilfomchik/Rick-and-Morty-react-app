@@ -10,17 +10,12 @@ const Accordion = ({
     toggleAccordion,
     onCurrentCategoryChange,
 }) => {
-    // const [accordionTitle, setAccordionTitle] = useState(accordion.title);
     const { currentCategory, onCategoryCheck } = useFilter();
-
-    // console.log(accordion);
 
     const onCategoryClick = (e, category) => {
         onCategoryCheck(category);
         toggleAccordion(e, id);
         onCurrentCategoryChange(e, accordion.id, currentCategory.current);
-
-        // setAccordionTitle(currentCategory.current);
     };
 
     return (

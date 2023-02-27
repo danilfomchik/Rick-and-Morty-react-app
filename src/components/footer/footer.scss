@@ -1,0 +1,90 @@
+@import '../../style/variables.scss';
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #202329; 
+    color: #ffffff;
+    padding: 70px 0px;
+
+    &__api-info{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        font-size: 15px;
+
+        &__count{
+            cursor: default;
+            margin: 0px 15px;
+
+            &:hover{
+                span{
+                    transition: all 150ms ease-in;
+                    color: $hover-color;
+                }
+            }
+        }
+    }
+
+    &__logotypes{
+        img{
+            width: 200px;
+        }
+    }
+
+    &__social-medias{
+        display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+        padding: 20px 0px 0px;
+
+        &__list{
+            display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+
+            li{
+                padding: 0px 10px;
+
+                a > i {
+                    font-size: 17px;
+                    color: #ffffff;
+                    transition: all 150ms ease-in;
+
+                    &:hover {
+                        font-size: 20px;
+                        color: $hover-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &__developed-by{
+        padding: 20px 0px 0px;
+
+        .developer-name{
+            color: #ffffff;
+            font-size: 18px;
+            text-decoration: none;
+
+            // transition: all 150ms ease-in;
+
+            span{
+                padding: 0px 2px 2px;
+                border-bottom: 2px solid $hover-color;
+                transition: all 150ms ease-in;
+
+                &:hover{
+                    color: $hover-color;
+                }
+            }
+        }
+    }
+}

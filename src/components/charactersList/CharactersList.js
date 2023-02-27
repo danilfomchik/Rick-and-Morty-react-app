@@ -22,11 +22,6 @@ const CharactersList = ({
         currentPageControls;
 
     useEffect(() => {
-        scrollRef.current.scrollIntoView({
-            block: "center",
-            behavior: "smooth",
-        });
-
         clearError();
 
         // применить useTransition
@@ -85,6 +80,7 @@ const CharactersList = ({
 
             {!error && (
                 <PagesBlock
+                    scrollRef={scrollRef}
                     allPagesCount={allPagesCount}
                     controls={currentPageControls}
                 />

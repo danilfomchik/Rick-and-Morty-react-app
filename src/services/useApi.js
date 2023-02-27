@@ -18,7 +18,18 @@ const useApi = () => {
 
         return {
             result: characters.results.map(_transformCharacter),
+            count: characters.info.count,
             pages: characters.info.pages,
+        };
+    };
+
+    const getLocations = async () => {
+        const locations = await request(`${_apiBase}location`);
+
+        return {
+            result: locations.results.map(_transformCharacter),
+            count: locations.info.count,
+            pages: locations.info.pages,
         };
     };
 
@@ -35,6 +46,7 @@ const useApi = () => {
 
     return {
         getCharacters,
+        getLocations,
         loading,
         error,
         clearError,

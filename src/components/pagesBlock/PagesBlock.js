@@ -9,13 +9,20 @@ function arePropsEqual(prevProps, nextProps) {
     return prevProps.allPagesCount === nextProps.allPagesCount;
 }
 
-const PagesBlock = ({ allPagesCount, controls }) => {
+const PagesBlock = ({ allPagesCount, controls, scrollRef }) => {
     const {
         currentPage,
         increaseCurrentPage,
         decreaseCurrentPage,
         setNewPage,
     } = controls;
+
+    const onPageChange = () => {
+        scrollRef.current.scrollIntoView({
+            block: "center",
+            behavior: "smooth",
+        });
+    };
 
     const renderPages = (pagesCount) => {
         let pages = [];
@@ -26,7 +33,10 @@ const PagesBlock = ({ allPagesCount, controls }) => {
             pages.push(
                 <div
                     key={currPage}
-                    onClick={() => setNewPage(currPage)}
+                    onClick={() => {
+                        onPageChange();
+                        setNewPage(currPage);
+                    }}
                     className={
                         currPage === currentPage
                             ? "characters-list__pages-page active"
@@ -49,7 +59,10 @@ const PagesBlock = ({ allPagesCount, controls }) => {
     return (
         <div className="characters-list__pages">
             <button
-                onClick={decreaseCurrentPage}
+                onClick={() => {
+                    onPageChange();
+                    decreaseCurrentPage();
+                }}
                 className="button characters-list__pages-page"
                 disabled={currentPage === 1}
             >
@@ -57,7 +70,10 @@ const PagesBlock = ({ allPagesCount, controls }) => {
             </button>
             {pagesBlocks}
             <button
-                onClick={increaseCurrentPage}
+                onClick={() => {
+                    onPageChange();
+                    increaseCurrentPage();
+                }}
                 className="button characters-list__pages-page"
                 disabled={currentPage === allPagesCount}
             >

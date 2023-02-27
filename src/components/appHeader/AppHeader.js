@@ -13,7 +13,7 @@ const setActiveClass = ({ isActive }) =>
 const AppHeader = () => {
     return (
         <header className="app-header">
-            <Container className="app-header__container">
+            <div className="app-header__container">
                 <ul className="app-header__navigation">
                     <li className="app-header__navigation-link">
                         <NavLink end to="/" className={setActiveClass}>
@@ -53,7 +53,7 @@ const AppHeader = () => {
                         </NavLink>
                     </li>
                 </ul>
-            </Container>
+            </div>
         </header>
     );
 };
