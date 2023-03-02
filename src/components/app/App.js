@@ -14,8 +14,10 @@ import Spinner from "../spinner/Spinner";
 
 import { CharactersPage } from "../pages/charactersPage/CharactersPage";
 
-const EpisodesPage = lazy(() => import("../pages/EpisodesPage"));
-const LocationsPage = lazy(() => import("../pages/LocationsPage"));
+const EpisodesPage = lazy(() => import("../pages/episodesPage/EpisodesPage"));
+const LocationsPage = lazy(() =>
+    import("../pages/locationsPage/LocationsPage")
+);
 
 function App() {
     return (

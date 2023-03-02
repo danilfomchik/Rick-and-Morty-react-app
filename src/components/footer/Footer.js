@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import useApi from "../../services/useApi";
 
 import vercelDeploy from "../../resources/vercel-deploy.png";
 import reactLogo from "../../resources/react-logo.png";
@@ -6,23 +8,30 @@ import reactLogo from "../../resources/react-logo.png";
 import "./footer.scss";
 
 const Footer = () => {
+    const [charactersCount, setCharactersCount] = useState(0);
+    const [episodesCount, setEpisodesCount] = useState(0);
+    const [locationsCount, setLocationsCount] = useState(0);
+    const { getAllCharactersCount, getEpisode, getLocation } = useApi();
+
+    useEffect(() => {
+        getAllCharactersCount().then(setCharactersCount);
+        getEpisode().then((data) => setEpisodesCount(data.count));
+        getLocation().then((data) => setLocationsCount(data.count));
+    }, []);
+
     return (
         <div className="footer">
             <div className="footer__api-info">
                 <div className="footer__api-info__count">
-                    CHARACTERS: {<span>826</span>}
+                    CHARACTERS: <span>{charactersCount}</span>
                 </div>
                 <div className="footer__api-info__count">
-                    LOCATIONS: {<span>126</span>}
+                    LOCATIONS: <span>{locationsCount}</span>
                 </div>
                 <div className="footer__api-info__count">
-                    EPISODES: {<span>51</span>}
+                    EPISODES: <span>{episodesCount}</span>
                 </div>
             </div>
-            {/* <div className="footer__logotypes">
-                <img src={vercelDeploy} alt="vercel-deploy" />
-                <img src={reactLogo} alt="react-logo" />
-            </div> */}
             <div className="footer__social-medias">
                 <ul className="footer__social-medias__list">
                     <li className="social-list_li">

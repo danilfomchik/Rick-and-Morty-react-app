@@ -4,48 +4,13 @@ import CharactersItem from "../charactersItem/CharactersItem";
 import PagesBlock from "../pagesBlock/PagesBlock";
 import Spinner from "../spinner/Spinner";
 
+import useGettingData from "../../hooks/useGettingData";
 import useApi from "../../services/useApi";
 
 import "./characters-list.scss";
 
-const CharactersList = ({
-    query,
-    scrollRef,
-    currentPageControls,
-    accordions,
-    accordionsCategories,
-}) => {
-    const [characters, setCharacters] = useState([]);
-    const { loading, error, getCharacters, clearError } = useApi();
-
-    const { allPagesCount, setAllPagesCount, currentPage } =
-        currentPageControls;
-
-    useEffect(() => {
-        clearError();
-
-        // применить useTransition
-        onCharactersLoading(() =>
-            getCharacters({
-                query,
-                currentPage,
-                // оптимизировать с помощью цикла
-                status: accordions[0].currentCategory,
-                species: accordions[1].currentCategory,
-                gender: accordions[2].currentCategory,
-                // оптимизировать с помощью цикла
-            })
-        );
-    }, [currentPage, query, ...accordionsCategories]);
-
-    const onCharactersLoading = (getDataFunc, param) => {
-        getDataFunc(param).then(onCharactersLoaded);
-    };
-
-    const onCharactersLoaded = (data) => {
-        setCharacters(data.result);
-        setAllPagesCount(data.pages);
-    };
+const CharactersList = ({ data, loading, error }) => {
+    // console.log(data);
 
     const renderCharacters = useCallback(
         (characters) => {
@@ -61,10 +26,10 @@ const CharactersList = ({
                 />
             ));
         },
-        [characters]
+        [data]
     );
 
-    const charCards = renderCharacters(characters);
+    const charCards = renderCharacters(data);
 
     const content = !loading && !error && charCards;
     const spinner = loading && <Spinner />;
@@ -77,14 +42,6 @@ const CharactersList = ({
                 {spinner}
                 {content}
             </div>
-
-            {!error && (
-                <PagesBlock
-                    scrollRef={scrollRef}
-                    allPagesCount={allPagesCount}
-                    controls={currentPageControls}
-                />
-            )}
         </>
     );
 };

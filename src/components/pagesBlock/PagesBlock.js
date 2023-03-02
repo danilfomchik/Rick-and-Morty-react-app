@@ -5,12 +5,9 @@ import { useCurrentPage } from "../../hooks/useCurrentPage";
 
 import "./pages-block.scss";
 
-function arePropsEqual(prevProps, nextProps) {
-    return prevProps.allPagesCount === nextProps.allPagesCount;
-}
-
-const PagesBlock = ({ allPagesCount, controls, scrollRef }) => {
+const PagesBlock = ({ controls, searchRef }) => {
     const {
+        allPagesCount,
         currentPage,
         increaseCurrentPage,
         decreaseCurrentPage,
@@ -18,7 +15,7 @@ const PagesBlock = ({ allPagesCount, controls, scrollRef }) => {
     } = controls;
 
     const onPageChange = () => {
-        scrollRef.current.scrollIntoView({
+        searchRef.current.scrollIntoView({
             block: "center",
             behavior: "smooth",
         });

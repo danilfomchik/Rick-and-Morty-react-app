@@ -1,18 +1,27 @@
-import { useState, createContext, useRef } from "react";
+import { useState, createContext, useRef, useEffect } from "react";
 
+import useApi from "../../../services/useApi";
+import useGettingData from "../../../hooks/useGettingData";
 import { useCurrentPage } from "../../../hooks/useCurrentPage";
 
+import PagesBlock from "../../pagesBlock/PagesBlock";
 import CharactersList from "../../charactersList/CharactersList";
 import SearchPanel from "../../searchPanel/SearchPanel";
 import FilterPanel from "../../filterPanel/FilterPanel";
 
 import "./characters-page.scss";
 
-export const CurrentPageContext = createContext();
-
 export const CharactersPage = () => {
     const [query, setQuery] = useState("");
+    const [data, setData] = useState([]);
+
     const searchRef = useRef(null);
+
+    const currentPageControls = useCurrentPage();
+    const { resetCurrentPage, setAllPagesCount, currentPage } =
+        currentPageControls;
+
+    const { loading, error, getCharacters, clearError } = useApi();
 
     const [accordions, setAccordions] = useState([
         {
@@ -50,7 +59,36 @@ export const CharactersPage = () => {
         },
     ]);
 
-    const currentPageControls = useCurrentPage();
+    // ----------------
+    const onCharactersLoading = () => {
+        getCharacters({
+            query,
+            currentPage,
+            // оптимизировать с помощью цикла
+            status: accordions[0].currentCategory,
+            species: accordions[1].currentCategory,
+            gender: accordions[2].currentCategory,
+            // оптимизировать с помощью цикла
+        }).then(onCharactersLoaded);
+    };
+
+    const onCharactersLoaded = (data) => {
+        setData(data.result);
+        setAllPagesCount(data.pages);
+    };
+
+    useEffect(() => {
+        clearError();
+
+        // применить useTransition
+        onCharactersLoading();
+        // применить useTransition
+    }, [
+        currentPage,
+        query,
+        ...accordions.map((accordion) => accordion.currentCategory),
+    ]);
+    // ----------------
 
     const onClearFilters = () => {
         setAccordions(
@@ -62,7 +100,7 @@ export const CharactersPage = () => {
             })
         );
 
-        currentPageControls.resetCurrentPage();
+        resetCurrentPage();
     };
 
     return (
@@ -89,15 +127,18 @@ export const CharactersPage = () => {
             </div>
 
             <CharactersList
+                data={data}
+                loading={loading}
+                error={error}
                 currentPageControls={currentPageControls}
-                query={query}
-                scrollRef={searchRef}
-                accordions={accordions}
-                accordionsCategories={accordions.map(
-                    (accordion) => accordion.currentCategory
-                )}
-                setAccordions={setAccordions}
             />
+
+            {!error && (
+                <PagesBlock
+                    searchRef={searchRef}
+                    controls={currentPageControls}
+                />
+            )}
         </div>
     );
 };
