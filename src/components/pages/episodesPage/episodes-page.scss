@@ -1,0 +1,15 @@
+.episodes{
+    &__episode-info{
+        color: #6c6e6c;
+        background-color: #e3e3e3;
+        display: inline-block;
+        padding: 10px 30px;
+        border-radius: 30px;
+    }
+
+    &__title{
+        span{
+            color: rgb(85, 204, 68);
+        }
+    }
+}

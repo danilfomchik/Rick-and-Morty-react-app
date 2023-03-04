@@ -89,6 +89,7 @@ const useApi = () => {
             name: char.name,
             location: char.location.name,
             thumbnail: char.image,
+            origin: char.origin.name,
             species: char.species,
             status: char.status,
         };

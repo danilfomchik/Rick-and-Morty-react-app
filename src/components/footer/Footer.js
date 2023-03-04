@@ -13,11 +13,11 @@ const Footer = () => {
     const [locationsCount, setLocationsCount] = useState(0);
     const { getAllCharactersCount, getEpisode, getLocation } = useApi();
 
-    useEffect(() => {
-        getAllCharactersCount().then(setCharactersCount);
-        getEpisode().then((data) => setEpisodesCount(data.count));
-        getLocation().then((data) => setLocationsCount(data.count));
-    }, []);
+    // useEffect(() => {
+    //     getAllCharactersCount().then(setCharactersCount);
+    //     getEpisode().then((data) => setEpisodesCount(data.count));
+    //     getLocation().then((data) => setLocationsCount(data.count));
+    // }, []);
 
     return (
         <div className="footer">

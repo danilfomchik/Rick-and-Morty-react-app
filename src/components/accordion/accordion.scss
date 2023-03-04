@@ -2,16 +2,22 @@
     color: #2f362f;
     padding: 15px 50px;
     margin: 15px;
+    // max-width: 700px;
     border: 2px solid #61de2a;
     border-radius: 15px;
     box-shadow: 0px 0px 6px 1px #61de2a;
     background-color: rgba(255, 255, 255, 0.57);
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
-    flex: 1;
+    flex: 1 1 400px;
     cursor: pointer;
 
     // transition: all 0.4s ease-out;
+
+    &.episodes__accordion{
+        max-width: 700px;
+        margin: 30px auto 50px;
+    }
 
     &__title{
         position: relative;
@@ -43,12 +49,11 @@
     &__content{
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: stretch;
-
         opacity: 0;
         max-height: 0;
-        overflow-y: hidden;
+        overflow-y: auto;
         // transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
         
         transition: all 0.4s ease-out;
@@ -63,7 +68,7 @@
     
         .accordion-container__content{
             opacity: 1;
-            max-height: 1000px;
+            max-height: 300px;
         }
     }
 }

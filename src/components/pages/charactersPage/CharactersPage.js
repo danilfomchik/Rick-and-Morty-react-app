@@ -28,7 +28,7 @@ export const CharactersPage = () => {
             id: 0,
             title: "Status",
             categories: ["alive", "dead", "unknown"],
-            currentCategory: "",
+            currentValue: "",
             open: false,
         },
         {
@@ -47,14 +47,14 @@ export const CharactersPage = () => {
                 "Cronenberg",
                 "Planet",
             ],
-            currentCategory: "",
+            currentValue: "",
             open: false,
         },
         {
             id: 2,
             title: "Gender",
             categories: ["female", "male", "genderless", "unknown"],
-            currentCategory: "",
+            currentValue: "",
             open: false,
         },
     ]);
@@ -65,9 +65,9 @@ export const CharactersPage = () => {
             query,
             currentPage,
             // оптимизировать с помощью цикла
-            status: accordions[0].currentCategory,
-            species: accordions[1].currentCategory,
-            gender: accordions[2].currentCategory,
+            status: accordions[0].currentValue,
+            species: accordions[1].currentValue,
+            gender: accordions[2].currentValue,
             // оптимизировать с помощью цикла
         }).then(onCharactersLoaded);
     };
@@ -86,7 +86,7 @@ export const CharactersPage = () => {
     }, [
         currentPage,
         query,
-        ...accordions.map((accordion) => accordion.currentCategory),
+        ...accordions.map((accordion) => accordion.currentValue),
     ]);
     // ----------------
 
@@ -95,7 +95,7 @@ export const CharactersPage = () => {
             accordions.map((accordion) => {
                 return {
                     ...accordion,
-                    currentCategory: "",
+                    currentValue: "",
                 };
             })
         );

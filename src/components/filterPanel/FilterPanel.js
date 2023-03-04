@@ -24,7 +24,7 @@ const FilterPanel = memo(
             }
         };
 
-        const onCurrentCategoryChange = (e, accordiontId, currentCategory) => {
+        const onCurrentCategoryChange = (e, accordiontId, currentValue) => {
             e.stopPropagation();
             currentPageControls.resetCurrentPage();
 
@@ -33,7 +33,7 @@ const FilterPanel = memo(
                     if (accordion.id === accordiontId) {
                         return {
                             ...accordion,
-                            currentCategory,
+                            currentValue,
                         };
                     } else {
                         return accordion;
