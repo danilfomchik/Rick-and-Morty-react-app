@@ -7,13 +7,12 @@ import "./accordion.scss";
 const Accordion = ({
     customClass,
     id,
+    initialValue,
     accordion,
     toggleAccordion,
     onCurrentCategoryChange,
 }) => {
-    const { currentValue, onCategoryCheck } = useFilter();
-
-    // console.log(accordion);
+    const { currentValue, onCategoryCheck } = useFilter(initialValue);
 
     const onCategoryClick = (e, category) => {
         onCategoryCheck(category);
@@ -42,7 +41,7 @@ const Accordion = ({
                         onClick={(e) => {
                             onCategoryClick(e, category);
                         }}
-                        data-category={category.toLowerCase()}
+                        data-value={category}
                         key={i}
                     >
                         {category}

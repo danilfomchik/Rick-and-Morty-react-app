@@ -48,6 +48,7 @@ const FilterPanel = memo(
                     <Accordion
                         id={i}
                         key={i}
+                        initialValue={""}
                         accordion={accordion}
                         toggleAccordion={toggleAccordion}
                         onCurrentCategoryChange={onCurrentCategoryChange}

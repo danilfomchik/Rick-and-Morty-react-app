@@ -16,9 +16,11 @@ const EpisodesPage = () => {
         id: 0,
         title: "Status",
         categories: [],
-        currentValue: "Episode - 1",
+        currentValue: 1,
         open: false,
     });
+
+    // оптимизировать currentValue: "Episode - 1", чтобы, возможно, вместо "Episode - 1" было просто число эпизода (изначально 0)
 
     const [currentEpisode, setCurrentEpisode] = useState(0);
 
@@ -44,7 +46,8 @@ const EpisodesPage = () => {
         let result = [];
 
         for (let i = 1; i <= amount; i++) {
-            result.push(`Episode - ${i}`);
+            // result.push(`Episode - ${i}`);
+            result.push(i);
         }
 
         return result;
@@ -62,7 +65,7 @@ const EpisodesPage = () => {
     const onCurrentCategoryChange = (e, accordiontId, currentValue) => {
         e.stopPropagation();
 
-        let intCurrentValue = +currentValue.replace(/\D+/g, "");
+        // let intCurrentValue = +currentValue.replace(/\D+/g, "");
 
         setAccordion((prev) => ({
             ...prev,
@@ -70,7 +73,8 @@ const EpisodesPage = () => {
         }));
 
         setCurrentEpisode(
-            intCurrentValue === 0 ? intCurrentValue : intCurrentValue - 1
+            // intCurrentValue === 0 ? intCurrentValue : intCurrentValue - 1
+            currentValue === 0 ? currentValue : currentValue - 1
         );
     };
 
@@ -85,9 +89,11 @@ const EpisodesPage = () => {
                 </h3>
             </div>
 
+            <h4 className="episodes__title page-title">Episodes</h4>
             <Accordion
                 customClass={"episodes__accordion"}
                 id={0}
+                initialValue={1}
                 accordion={accordion}
                 toggleAccordion={toggleAccordion}
                 onCurrentCategoryChange={onCurrentCategoryChange}
