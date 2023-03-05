@@ -14,39 +14,39 @@ const EpisodesPage = () => {
 
     const [accordion, setAccordion] = useState({
         id: 0,
-        title: "Status",
+        title: "",
         categories: [],
         currentValue: 1,
         open: false,
     });
 
-    // оптимизировать currentValue: "Episode - 1", чтобы, возможно, вместо "Episode - 1" было просто число эпизода (изначально 0)
+    const [currentEpisode, setCurrentEpisode] = useState(1);
 
-    const [currentEpisode, setCurrentEpisode] = useState(0);
+    const { loading, error, getEpisode, getDataCount, clearError } = useApi();
 
-    const { loading, error, getEpisode, clearError } = useApi();
-
-    const onCharactersLoaded = (data) => {
-        setEpisodesInfo(data.info);
-        setEpisodes(data.result);
-        setEpisodesCount(data.count);
-
-        setAccordion((prev) => ({
-            ...prev,
-            categories: setLocationAccordion(data.count),
-        }));
-    };
+    useEffect(() => {
+        getDataCount("episode").then((count) => {
+            setEpisodesCount(count);
+            setAccordion((prev) => ({
+                ...prev,
+                categories: setLocationAccordion(count),
+            }));
+        });
+    }, []);
 
     useEffect(() => {
         clearError();
-        getEpisode(currentEpisode).then(onCharactersLoaded);
+
+        getEpisode(currentEpisode).then((data) => {
+            setEpisodesInfo(data.info);
+            setEpisodes(data.result);
+        });
     }, [currentEpisode]);
 
     const setLocationAccordion = (amount) => {
         let result = [];
 
         for (let i = 1; i <= amount; i++) {
-            // result.push(`Episode - ${i}`);
             result.push(i);
         }
 
@@ -65,31 +65,17 @@ const EpisodesPage = () => {
     const onCurrentCategoryChange = (e, accordiontId, currentValue) => {
         e.stopPropagation();
 
-        // let intCurrentValue = +currentValue.replace(/\D+/g, "");
-
         setAccordion((prev) => ({
             ...prev,
             currentValue,
         }));
 
-        setCurrentEpisode(
-            // intCurrentValue === 0 ? intCurrentValue : intCurrentValue - 1
-            currentValue === 0 ? currentValue : currentValue - 1
-        );
+        setCurrentEpisode(currentValue);
     };
 
     return (
         <div className="episodes">
-            <div className="episodes__episode-info">
-                <h1 className="episodes__title page-title">
-                    Episode name: <span>{episodesInfo.name}</span>
-                </h1>
-                <h3 className="episodes__title page-title">
-                    Air date: <span>{episodesInfo.air_date}</span>
-                </h3>
-            </div>
-
-            <h4 className="episodes__title page-title">Episodes</h4>
+            <h4 className="episodes__title page-title">Pick Episode</h4>
             <Accordion
                 customClass={"episodes__accordion"}
                 id={0}
@@ -98,6 +84,15 @@ const EpisodesPage = () => {
                 toggleAccordion={toggleAccordion}
                 onCurrentCategoryChange={onCurrentCategoryChange}
             />
+
+            <div className="episodes__episode-info">
+                <h1 className="episodes__title page-title">
+                    Episode name: <span>{episodesInfo.name}</span>
+                </h1>
+                <h3 className="episodes__title page-title">
+                    Air date: <span>{episodesInfo.air_date}</span>
+                </h3>
+            </div>
 
             <CharactersList data={episodes} loading={loading} error={error} />
         </div>

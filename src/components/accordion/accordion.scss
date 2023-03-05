@@ -14,7 +14,7 @@
 
     // transition: all 0.4s ease-out;
 
-    &.episodes__accordion{
+    &.episodes__accordion, &.locations__accordion{
         max-width: 700px;
         margin: 10px auto 50px;
     }

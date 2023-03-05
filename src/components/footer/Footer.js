@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import useApi from "../../services/useApi";
 
@@ -7,17 +7,17 @@ import reactLogo from "../../resources/react-logo.png";
 
 import "./footer.scss";
 
-const Footer = () => {
+const Footer = memo(() => {
     const [charactersCount, setCharactersCount] = useState(0);
     const [episodesCount, setEpisodesCount] = useState(0);
     const [locationsCount, setLocationsCount] = useState(0);
-    const { getAllCharactersCount, getEpisode, getLocation } = useApi();
+    const { getDataCount } = useApi();
 
-    // useEffect(() => {
-    //     getAllCharactersCount().then(setCharactersCount);
-    //     getEpisode().then((data) => setEpisodesCount(data.count));
-    //     getLocation().then((data) => setLocationsCount(data.count));
-    // }, []);
+    useEffect(() => {
+        getDataCount("character").then((count) => setCharactersCount(count));
+        getDataCount("episode").then((count) => setEpisodesCount(count));
+        getDataCount("location").then((count) => setLocationsCount(count));
+    }, []);
 
     return (
         <div className="footer">
@@ -67,6 +67,6 @@ const Footer = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Footer;

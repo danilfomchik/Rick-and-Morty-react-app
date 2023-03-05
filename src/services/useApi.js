@@ -30,51 +30,67 @@ const useApi = () => {
     };
 
     const getLocation = async (currentLocation = 1) => {
-        const location = await request(`${_apiBase}location`);
-
-        return {
-            count: location.info.count,
-        };
-
-        // let characters = await Promise.all(
-        //     location.residents.map(async (charLink) => {
-        //         const res = await getSingleCharacter(charLink);
-        //         return res;
-        //     })
-        // );
-
-        // return {
-        //     info: {
-        //         name: location.name,
-        //         dimension: location.dimension,
-        //         id: location.id,
-        //         type: location.type,
-        //     },
-        //     result: characters,
-        // };
-    };
-
-    const getEpisode = async (currentEpisode = 0) => {
-        // const episode = await request(`${_apiBase}episode/${currentEpisode}`);
-        const episode = await request(`${_apiBase}episode`);
+        const location = await request(
+            `${_apiBase}location/${currentLocation}`
+        );
 
         let characters = await Promise.all(
-            episode.results[currentEpisode].characters.map(async (charLink) => {
+            location.residents.map(async (charLink) => {
                 const res = await getSingleCharacter(charLink);
                 return res;
             })
         );
 
+        // const currentLocationObj = location.results[currentLocation];
+        let dimention = "";
+
+        if (location.dimension === "") {
+            dimention = "Unknown";
+        } else {
+            dimention = location.dimension;
+        }
+
         return {
             info: {
-                air_date: episode.results[currentEpisode].air_date,
-                episode: episode.results[currentEpisode].episode,
-                id: episode.results[currentEpisode].id,
-                name: episode.results[currentEpisode].name,
+                dimension: dimention,
+                id: location.id,
+                name: location.name,
+                type: location.type,
             },
-            count: episode.info.count,
+            // count: location.info.count,
             result: characters,
         };
+    };
+
+    const getEpisode = async (currentEpisode = 1) => {
+        // const episode = await request(`${_apiBase}episode/${currentEpisode}`);
+        const episode = await request(`${_apiBase}episode/${currentEpisode}`);
+
+        let characters = await Promise.all(
+            episode.characters.map(async (charLink) => {
+                const res = await getSingleCharacter(charLink);
+                return res;
+            })
+        );
+
+        // const currentEpisodeObj = episode.results[currentEpisode];
+
+        return {
+            info: {
+                air_date: episode.air_date,
+                episode: episode.episode,
+                id: episode.id,
+                name: episode.name,
+            },
+            // count: episode.info.count,
+            result: characters,
+        };
+    };
+
+    const getDataCount = async (dataName) => {
+        const episode = await request(`${_apiBase}${dataName}`);
+
+        return episode.info.count;
     };
 
     const getSingleCharacter = async (url) => {
@@ -101,6 +117,7 @@ const useApi = () => {
         getAllCharactersCount,
         getLocation,
         getEpisode,
+        getDataCount,
         loading,
         error,
         clearError,
