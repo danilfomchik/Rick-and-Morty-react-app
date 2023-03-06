@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useOutlet, Outlet } from "react-router-dom";
 
 import Accordion from "../../accordion/Accordion";
 import CharactersList from "../../charactersList/CharactersList";
@@ -11,6 +12,8 @@ const EpisodesPage = () => {
     const [episodes, setEpisodes] = useState([]);
     const [episodesInfo, setEpisodesInfo] = useState({});
     const [episodesCount, setEpisodesCount] = useState(0);
+
+    const outlet = useOutlet();
 
     const [accordion, setAccordion] = useState({
         id: 0,
@@ -74,28 +77,39 @@ const EpisodesPage = () => {
     };
 
     return (
-        <div className="episodes">
-            <h4 className="episodes__title page-title">Pick Episode</h4>
-            <Accordion
-                customClass={"episodes__accordion"}
-                id={0}
-                initialValue={1}
-                accordion={accordion}
-                toggleAccordion={toggleAccordion}
-                onCurrentCategoryChange={onCurrentCategoryChange}
-            />
+        <>
+            {outlet ? (
+                <Outlet />
+            ) : (
+                <div className="episodes">
+                    <h4 className="episodes__title page-title">Pick Episode</h4>
+                    <Accordion
+                        customClass={"episodes__accordion"}
+                        id={0}
+                        initialValue={1}
+                        accordion={accordion}
+                        toggleAccordion={toggleAccordion}
+                        onCurrentCategoryChange={onCurrentCategoryChange}
+                    />
 
-            <div className="episodes__episode-info">
-                <h1 className="episodes__title page-title">
-                    Episode name: <span>{episodesInfo.name}</span>
-                </h1>
-                <h3 className="episodes__title page-title">
-                    Air date: <span>{episodesInfo.air_date}</span>
-                </h3>
-            </div>
+                    <div className="episodes__episode-info">
+                        <h1 className="episodes__title page-title">
+                            Episode name: <span>{episodesInfo.name}</span>
+                        </h1>
+                        <h3 className="episodes__title page-title">
+                            Air date: <span>{episodesInfo.air_date}</span>
+                        </h3>
+                    </div>
 
-            <CharactersList data={episodes} loading={loading} error={error} />
-        </div>
+                    <CharactersList
+                        page={"/episodes/"}
+                        data={episodes}
+                        loading={loading}
+                        error={error}
+                    />
+                </div>
+            )}
+        </>
     );
 };
 

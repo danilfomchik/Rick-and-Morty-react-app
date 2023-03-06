@@ -1,6 +1,16 @@
+import { Link } from "react-router-dom";
+
 import "./characters-list-item.scss";
 
-const CharactersItem = ({ id, name, location, thumbnail, species, status }) => {
+const CharactersItem = ({
+    id,
+    name,
+    location,
+    thumbnail,
+    species,
+    status,
+    page,
+}) => {
     // console.log(species, status);
 
     let charStatus = "characters-list__item-status";
@@ -14,7 +24,7 @@ const CharactersItem = ({ id, name, location, thumbnail, species, status }) => {
     }
 
     return (
-        <div className="characters-list__item">
+        <Link className="characters-list__item" to={`${page}${id}`}>
             <div className="characters-list__item-avatar">
                 <img src={thumbnail} alt={name} />
             </div>
@@ -31,7 +41,7 @@ const CharactersItem = ({ id, name, location, thumbnail, species, status }) => {
                     <span>{location}</span>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

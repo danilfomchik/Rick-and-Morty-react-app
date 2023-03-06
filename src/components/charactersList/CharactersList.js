@@ -9,7 +9,7 @@ import useApi from "../../services/useApi";
 
 import "./characters-list.scss";
 
-const CharactersList = ({ data, loading, error }) => {
+const CharactersList = ({ data, loading, error, page }) => {
     // console.log(data);
 
     const renderCharacters = useCallback(
@@ -23,6 +23,7 @@ const CharactersList = ({ data, loading, error }) => {
                     thumbnail={char.thumbnail}
                     species={char.species}
                     status={char.status}
+                    page={page}
                 />
             ));
         },

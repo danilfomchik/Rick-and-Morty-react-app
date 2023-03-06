@@ -36,7 +36,9 @@ const useApi = () => {
 
         let characters = await Promise.all(
             location.residents.map(async (charLink) => {
-                const res = await getSingleCharacter(charLink);
+                const res = await getSingleCharacter(
+                    charLink.replace(/\D/g, "")
+                );
                 return res;
             })
         );
@@ -68,7 +70,9 @@ const useApi = () => {
 
         let characters = await Promise.all(
             episode.characters.map(async (charLink) => {
-                const res = await getSingleCharacter(charLink);
+                const res = await getSingleCharacter(
+                    charLink.replace(/\D/g, "")
+                );
                 return res;
             })
         );
@@ -93,13 +97,15 @@ const useApi = () => {
         return episode.info.count;
     };
 
-    const getSingleCharacter = async (url) => {
-        const character = await request(url);
+    const getSingleCharacter = async (id) => {
+        const character = await request(`${_apiBase}character/${id}`);
 
         return _transformCharacter(character);
     };
 
     const _transformCharacter = (char) => {
+        console.log(char);
+
         return {
             id: char.id,
             name: char.name,
@@ -108,6 +114,8 @@ const useApi = () => {
             origin: char.origin.name,
             species: char.species,
             status: char.status,
+            origin: char.origin.name,
+            gender: char.gender,
         };
     };
 

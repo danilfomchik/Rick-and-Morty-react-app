@@ -1,4 +1,5 @@
 import { useState, createContext, useRef, useEffect } from "react";
+import { useOutlet, Outlet } from "react-router-dom";
 
 import useApi from "../../../services/useApi";
 import useGettingData from "../../../hooks/useGettingData";
@@ -14,6 +15,8 @@ import "./characters-page.scss";
 export const CharactersPage = () => {
     const [query, setQuery] = useState("");
     const [data, setData] = useState([]);
+
+    const outlet = useOutlet();
 
     const searchRef = useRef(null);
 
@@ -104,41 +107,48 @@ export const CharactersPage = () => {
     };
 
     return (
-        <div className="characters">
-            <h1 className="characters__title page-title">Characters</h1>
+        <>
+            {outlet ? (
+                <Outlet />
+            ) : (
+                <div className="characters">
+                    <h1 className="characters__title page-title">Characters</h1>
 
-            <div className="characters__filter-panel">
-                <SearchPanel
-                    currentPageControls={currentPageControls}
-                    searchRef={searchRef}
-                    query={query}
-                    setQuery={setQuery}
-                />
+                    <div className="characters__filter-panel">
+                        <SearchPanel
+                            currentPageControls={currentPageControls}
+                            searchRef={searchRef}
+                            query={query}
+                            setQuery={setQuery}
+                        />
 
-                <div className="filter-panel__clear-btn">
-                    <span onClick={onClearFilters}>Clear</span>
+                        <div className="filter-panel__clear-btn">
+                            <span onClick={onClearFilters}>Clear</span>
+                        </div>
+
+                        <FilterPanel
+                            currentPageControls={currentPageControls}
+                            accordions={accordions}
+                            setAccordions={setAccordions}
+                        />
+                    </div>
+
+                    <CharactersList
+                        page={"/"}
+                        data={data}
+                        loading={loading}
+                        error={error}
+                        currentPageControls={currentPageControls}
+                    />
+
+                    {!error && (
+                        <PagesBlock
+                            searchRef={searchRef}
+                            controls={currentPageControls}
+                        />
+                    )}
                 </div>
-
-                <FilterPanel
-                    currentPageControls={currentPageControls}
-                    accordions={accordions}
-                    setAccordions={setAccordions}
-                />
-            </div>
-
-            <CharactersList
-                data={data}
-                loading={loading}
-                error={error}
-                currentPageControls={currentPageControls}
-            />
-
-            {!error && (
-                <PagesBlock
-                    searchRef={searchRef}
-                    controls={currentPageControls}
-                />
             )}
-        </div>
+        </>
     );
 };

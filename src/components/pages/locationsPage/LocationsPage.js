@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useOutlet, Outlet } from "react-router-dom";
 
 import Accordion from "../../accordion/Accordion";
 import CharactersList from "../../charactersList/CharactersList";
@@ -11,6 +12,8 @@ const LocationsPage = () => {
     const [episodes, setEpisodes] = useState([]);
     const [episodesInfo, setEpisodesInfo] = useState({});
     const [episodesCount, setEpisodesCount] = useState(0);
+
+    const outlet = useOutlet();
 
     const [accordion, setAccordion] = useState({
         id: 0,
@@ -73,31 +76,44 @@ const LocationsPage = () => {
     };
 
     return (
-        <div className="location">
-            <h4 className="locations__title page-title">Pick location</h4>
-            <Accordion
-                customClass={"locations__accordion"}
-                id={0}
-                initialValue={1}
-                accordion={accordion}
-                toggleAccordion={toggleAccordion}
-                onCurrentCategoryChange={onCurrentCategoryChange}
-            />
+        <>
+            {outlet ? (
+                <Outlet />
+            ) : (
+                <div className="location">
+                    <h4 className="locations__title page-title">
+                        Pick location
+                    </h4>
+                    <Accordion
+                        customClass={"locations__accordion"}
+                        id={0}
+                        initialValue={1}
+                        accordion={accordion}
+                        toggleAccordion={toggleAccordion}
+                        onCurrentCategoryChange={onCurrentCategoryChange}
+                    />
 
-            <div className="locations__location-info">
-                <h1 className="locations__title page-title">
-                    Location: <span>{episodesInfo.name}</span>
-                </h1>
-                <h3 className="locations__title page-title">
-                    Dimension: <span>{episodesInfo.dimension}</span>
-                </h3>
-                <h4 className="locations__title page-title">
-                    Type: <span>{episodesInfo.type}</span>
-                </h4>
-            </div>
+                    <div className="locations__location-info">
+                        <h1 className="locations__title page-title">
+                            Location: <span>{episodesInfo.name}</span>
+                        </h1>
+                        <h3 className="locations__title page-title">
+                            Dimension: <span>{episodesInfo.dimension}</span>
+                        </h3>
+                        <h4 className="locations__title page-title">
+                            Type: <span>{episodesInfo.type}</span>
+                        </h4>
+                    </div>
 
-            <CharactersList data={episodes} loading={loading} error={error} />
-        </div>
+                    <CharactersList
+                        page={"/locations/"}
+                        data={episodes}
+                        loading={loading}
+                        error={error}
+                    />
+                </div>
+            )}
+        </>
     );
 };
 
