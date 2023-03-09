@@ -5,6 +5,7 @@ import useApi from "../../../services/useApi";
 import useGettingData from "../../../hooks/useGettingData";
 import { useCurrentPage } from "../../../hooks/useCurrentPage";
 
+import Salutation from "../../salutation/Salutation";
 import PagesBlock from "../../pagesBlock/PagesBlock";
 import CharactersList from "../../charactersList/CharactersList";
 import SearchPanel from "../../searchPanel/SearchPanel";
@@ -111,43 +112,48 @@ export const CharactersPage = () => {
             {outlet ? (
                 <Outlet />
             ) : (
-                <div className="characters">
-                    <h1 className="characters__title page-title">Characters</h1>
+                <>
+                    <Salutation />
+                    <div className="characters">
+                        <h1 className="characters__title page-title">
+                            Characters
+                        </h1>
 
-                    <div className="characters__filter-panel">
-                        <SearchPanel
-                            currentPageControls={currentPageControls}
-                            searchRef={searchRef}
-                            query={query}
-                            setQuery={setQuery}
-                        />
+                        <div className="characters__filter-panel">
+                            <SearchPanel
+                                currentPageControls={currentPageControls}
+                                searchRef={searchRef}
+                                query={query}
+                                setQuery={setQuery}
+                            />
 
-                        <div className="filter-panel__clear-btn">
-                            <span onClick={onClearFilters}>Clear</span>
+                            <div className="filter-panel__clear-btn">
+                                <span onClick={onClearFilters}>Clear</span>
+                            </div>
+
+                            <FilterPanel
+                                currentPageControls={currentPageControls}
+                                accordions={accordions}
+                                setAccordions={setAccordions}
+                            />
                         </div>
 
-                        <FilterPanel
+                        <CharactersList
+                            page={"/characters/"}
+                            data={data}
+                            loading={loading}
+                            error={error}
                             currentPageControls={currentPageControls}
-                            accordions={accordions}
-                            setAccordions={setAccordions}
                         />
+
+                        {!error && (
+                            <PagesBlock
+                                searchRef={searchRef}
+                                controls={currentPageControls}
+                            />
+                        )}
                     </div>
-
-                    <CharactersList
-                        page={"/"}
-                        data={data}
-                        loading={loading}
-                        error={error}
-                        currentPageControls={currentPageControls}
-                    />
-
-                    {!error && (
-                        <PagesBlock
-                            searchRef={searchRef}
-                            controls={currentPageControls}
-                        />
-                    )}
-                </div>
+                </>
             )}
         </>
     );

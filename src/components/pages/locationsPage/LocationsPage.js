@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useOutlet, Outlet } from "react-router-dom";
 
+import Salutation from "../../salutation/Salutation";
 import Accordion from "../../accordion/Accordion";
 import CharactersList from "../../charactersList/CharactersList";
 
@@ -80,38 +81,43 @@ const LocationsPage = () => {
             {outlet ? (
                 <Outlet />
             ) : (
-                <div className="location">
-                    <h4 className="locations__title page-title">
-                        Pick location
-                    </h4>
-                    <Accordion
-                        customClass={"locations__accordion"}
-                        id={0}
-                        initialValue={1}
-                        accordion={accordion}
-                        toggleAccordion={toggleAccordion}
-                        onCurrentCategoryChange={onCurrentCategoryChange}
-                    />
+                <>
+                    <Salutation />
+                    <div className="locations">
+                        <h1 className="page-title">Locations</h1>
 
-                    <div className="locations__location-info">
-                        <h1 className="locations__title page-title">
-                            Location: <span>{episodesInfo.name}</span>
-                        </h1>
-                        <h3 className="locations__title page-title">
-                            Dimension: <span>{episodesInfo.dimension}</span>
-                        </h3>
-                        <h4 className="locations__title page-title">
-                            Type: <span>{episodesInfo.type}</span>
+                        <h4 className="locations__title page-title__2">
+                            Pick location
                         </h4>
-                    </div>
+                        <Accordion
+                            customClass={"locations__accordion"}
+                            id={0}
+                            initialValue={1}
+                            accordion={accordion}
+                            toggleAccordion={toggleAccordion}
+                            onCurrentCategoryChange={onCurrentCategoryChange}
+                        />
 
-                    <CharactersList
-                        page={"/locations/"}
-                        data={episodes}
-                        loading={loading}
-                        error={error}
-                    />
-                </div>
+                        <div className="locations__location-info">
+                            <h1 className="locations__title">
+                                Location: <span>{episodesInfo.name}</span>
+                            </h1>
+                            <h3 className="locations__title">
+                                Dimension: <span>{episodesInfo.dimension}</span>
+                            </h3>
+                            <h4 className="locations__title">
+                                Type: <span>{episodesInfo.type}</span>
+                            </h4>
+                        </div>
+
+                        <CharactersList
+                            page={"/locations/"}
+                            data={episodes}
+                            loading={loading}
+                            error={error}
+                        />
+                    </div>
+                </>
             )}
         </>
     );

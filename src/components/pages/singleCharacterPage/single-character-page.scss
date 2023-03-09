@@ -1,8 +1,12 @@
+@import '../../../style/variables.scss';
+
 .single-character{
     padding: 20px 0px 50px;
+    max-width: 70%;
+    margin: 0 auto;
 
     .characters-list__item{
-        max-width: 70%;
+        // max-width: 70%;
         margin: 0px auto;
         height: auto;
 
@@ -12,6 +16,21 @@
             
             div{
                 padding: 0px 0px 20px;
+            }
+        }
+    }
+
+    &__controls{
+        text-align: right;
+        padding: 0px 20px 15px;
+
+        span{
+            background: #ffffff;
+            text-decoration: underline;
+            cursor: pointer;
+
+            &:hover{
+                color: $hover-color;
             }
         }
     }

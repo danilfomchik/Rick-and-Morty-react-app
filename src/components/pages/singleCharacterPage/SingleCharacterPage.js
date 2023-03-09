@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
+import Spinner from "../../spinner/Spinner";
 
 import useApi from "../../../services/useApi";
 
@@ -25,69 +27,66 @@ function SingleCharacterPage() {
         charStatus = charStatus;
     }
 
+    // сделать компонент с отображением ошибки (dead morty)
+    const errorMessage = error && <h1>no such character!</h1>;
+
+    const spinner = loading && <Spinner />;
+    const content = !loading && !error && (
+        <View character={characterInfo} charStatus={charStatus} />
+    );
+
     return (
-        // Gender : Male
-        // Location: Citadel of Ricks
-        // Origin: Earth (C-137)
-
-        // <div className="single-character">
-        //     <h1>{characterInfo.name}</h1>
-
-        //     <div className="single-character__info">
-        //         <div className="characters-list__item-avatar">
-        //             <img
-        //                 src={characterInfo.thumbnail}
-        //                 alt={characterInfo.name}
-        //             />
-        //         </div>
-
-        //         <div className="characters-list__item-info">
-        //             {/* <h2>{characterInfo.name}</h2> */}
-        //             <div className={charStatus}>
-        //                 <span>
-        //                     {characterInfo.status} - {characterInfo.species}
-        //                 </span>
-        //             </div>
-        //             <div className="">
-        //                 <p>Last known location:</p>
-        //                 <span>{characterInfo.location}</span>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
-
         <div className="single-character">
+            {content}
+            {spinner}
+            {errorMessage}
+        </div>
+    );
+}
+
+const View = ({ character, charStatus }) => {
+    const { name, thumbnail, status, species, gender, origin, location } =
+        character;
+    const navigate = useNavigate();
+
+    return (
+        <>
+            <div className="single-character__controls">
+                <span
+                    onClick={() => navigate(-1)}
+                    className="single-character__return"
+                >
+                    Return back
+                </span>
+            </div>
             <div className="characters-list__item">
                 <div className="characters-list__item-avatar">
-                    <img
-                        src={characterInfo.thumbnail}
-                        alt={characterInfo.name}
-                    />
+                    <img src={thumbnail} alt={name} />
                 </div>
 
                 <div className="characters-list__item-info">
-                    <h2>{characterInfo.name}</h2>
+                    <h2>{name}</h2>
                     <div className={charStatus}>
                         <span>
-                            {characterInfo.status} - {characterInfo.species}
+                            {status} - {species}
                         </span>
                     </div>
                     <div className="characters-list__item-location">
                         <p>Gender:</p>
-                        <span>{characterInfo.gender}</span>
+                        <span>{gender}</span>
                     </div>
                     <div className="characters-list__item-location">
                         <p>Origin:</p>
-                        <span>{characterInfo.origin}</span>
+                        <span>{origin}</span>
                     </div>
                     <div className="characters-list__item-location">
                         <p>Last known location:</p>
-                        <span>{characterInfo.location}</span>
+                        <span>{location}</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
-}
+};
 
 export default SingleCharacterPage;

@@ -16,7 +16,7 @@ const AppHeader = () => {
             <div className="app-header__container">
                 <ul className="app-header__navigation">
                     <li className="app-header__navigation-link">
-                        <NavLink to="/" className={setActiveClass}>
+                        <NavLink to="/characters" className={setActiveClass}>
                             Characters
                         </NavLink>
                     </li>

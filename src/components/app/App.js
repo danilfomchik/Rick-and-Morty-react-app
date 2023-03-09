@@ -28,26 +28,12 @@ function App() {
 
             <Container>
                 <main>
-                    <div className="salutation">
-                        <div className="salutation-content">
-                            <h1>Rick & Morty API</h1>
-                            <p>
-                                Find your favorites rick and morty characters,
-                                episodes and locations.
-                            </p>
-                        </div>
-                        <div className="salutation-image">
-                            <img
-                                className="rick-and-morty__main-image"
-                                src={rickAndMortyMain}
-                                alt="Rick and Morty"
-                            />
-                        </div>
-                    </div>
-
                     <Suspense fallback={<Spinner />}>
                         <Routes>
-                            <Route path="/" element={<CharactersPage />}>
+                            <Route
+                                path="/characters"
+                                element={<CharactersPage />}
+                            >
                                 {/* outlet - это этот вложенный роут(SingleCharacterPage), он будет вставляться в (CharactersPage) */}
                                 <Route
                                     path=":charId"
@@ -70,9 +56,10 @@ function App() {
                                 />
                             </Route>
 
+                            {/* // сделать компонент с отображением ошибки (dead morty) */}
                             <Route
                                 path="*"
-                                element={<h1>Nothing to show..</h1>}
+                                element={<h1>no such page!</h1>}
                             ></Route>
                         </Routes>
                     </Suspense>

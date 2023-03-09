@@ -34,7 +34,9 @@ const CharactersList = ({ data, loading, error, page }) => {
 
     const content = !loading && !error && charCards;
     const spinner = loading && <Spinner />;
-    const errorMessage = error && <h1>Nothing to show!</h1>;
+
+    // сделать компонент ошибки
+    const errorMessage = error && <h1>Error!</h1>;
 
     return (
         <>
