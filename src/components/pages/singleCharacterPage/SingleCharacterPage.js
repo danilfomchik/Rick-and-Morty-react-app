@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import Page404 from "../errorPage/404";
 import Spinner from "../../spinner/Spinner";
+
+import ReturnButton from "../../returnButton/ReturnButton";
 
 import useApi from "../../../services/useApi";
 
@@ -28,7 +31,7 @@ function SingleCharacterPage() {
     }
 
     // сделать компонент с отображением ошибки (dead morty)
-    const errorMessage = error && <h1>no such character!</h1>;
+    const errorMessage = error && <Page404 />;
 
     const spinner = loading && <Spinner />;
     const content = !loading && !error && (
@@ -51,14 +54,8 @@ const View = ({ character, charStatus }) => {
 
     return (
         <>
-            <div className="single-character__controls">
-                <span
-                    onClick={() => navigate(-1)}
-                    className="single-character__return"
-                >
-                    Return back
-                </span>
-            </div>
+            <ReturnButton title={"Return Back"} redirect={() => navigate(-1)} />
+
             <div className="characters-list__item">
                 <div className="characters-list__item-avatar">
                     <img src={thumbnail} alt={name} />

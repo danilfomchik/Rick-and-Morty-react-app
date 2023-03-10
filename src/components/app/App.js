@@ -10,6 +10,7 @@ import SingleCharacterPage from "../pages/singleCharacterPage/SingleCharacterPag
 import AppHeader from "../appHeader/AppHeader";
 import Footer from "../footer/Footer";
 
+import Page404 from "../pages/errorPage/404";
 import Spinner from "../spinner/Spinner";
 
 import "./app.scss";
@@ -54,10 +55,7 @@ function App() {
                             </Route>
 
                             {/* // сделать компонент с отображением ошибки (dead morty) */}
-                            <Route
-                                path="*"
-                                element={<h1>no such page!</h1>}
-                            ></Route>
+                            <Route path="*" element={<Page404 />}></Route>
                         </Routes>
                     </Suspense>
                 </main>
