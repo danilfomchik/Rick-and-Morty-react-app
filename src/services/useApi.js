@@ -104,7 +104,7 @@ const useApi = () => {
     };
 
     const _transformCharacter = (char) => {
-        console.log(char);
+        // console.log(char);
 
         return {
             id: char.id,

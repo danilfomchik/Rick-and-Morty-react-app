@@ -30,13 +30,10 @@ function App() {
                 <main>
                     <Suspense fallback={<Spinner />}>
                         <Routes>
-                            <Route
-                                path="/characters"
-                                element={<CharactersPage />}
-                            >
+                            <Route path="/" element={<CharactersPage />}>
                                 {/* outlet - это этот вложенный роут(SingleCharacterPage), он будет вставляться в (CharactersPage) */}
                                 <Route
-                                    path=":charId"
+                                    path="characters/:charId"
                                     element={<SingleCharacterPage />}
                                 />
                             </Route>
