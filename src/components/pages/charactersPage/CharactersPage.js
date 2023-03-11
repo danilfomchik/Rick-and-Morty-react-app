@@ -10,6 +10,7 @@ import PagesBlock from "../../pagesBlock/PagesBlock";
 import CharactersList from "../../charactersList/CharactersList";
 import SearchPanel from "../../searchPanel/SearchPanel";
 import FilterPanel from "../../filterPanel/FilterPanel";
+import ErrorBoundery from "../../errorBoundary/ErrorBoundery";
 
 import "./characters-page.scss";
 
@@ -114,37 +115,42 @@ export const CharactersPage = () => {
             ) : (
                 <>
                     <Salutation />
+
                     <div className="characters">
                         <h1 className="characters__title page-title">
                             Characters
                         </h1>
 
-                        <div className="characters__filter-panel">
-                            <SearchPanel
-                                currentPageControls={currentPageControls}
-                                searchRef={searchRef}
-                                query={query}
-                                setQuery={setQuery}
-                            />
+                        {!error && (
+                            <div className="characters__filter-panel">
+                                <SearchPanel
+                                    currentPageControls={currentPageControls}
+                                    searchRef={searchRef}
+                                    query={query}
+                                    setQuery={setQuery}
+                                />
 
-                            <div className="filter-panel__clear-btn">
-                                <span onClick={onClearFilters}>Clear</span>
+                                <div className="filter-panel__clear-btn">
+                                    <span onClick={onClearFilters}>Clear</span>
+                                </div>
+
+                                <FilterPanel
+                                    currentPageControls={currentPageControls}
+                                    accordions={accordions}
+                                    setAccordions={setAccordions}
+                                />
                             </div>
+                        )}
 
-                            <FilterPanel
+                        <ErrorBoundery>
+                            <CharactersList
+                                page={"/characters/"}
+                                data={data}
+                                loading={loading}
+                                error={error}
                                 currentPageControls={currentPageControls}
-                                accordions={accordions}
-                                setAccordions={setAccordions}
                             />
-                        </div>
-
-                        <CharactersList
-                            page={"/characters/"}
-                            data={data}
-                            loading={loading}
-                            error={error}
-                            currentPageControls={currentPageControls}
-                        />
+                        </ErrorBoundery>
 
                         {!error && (
                             <PagesBlock

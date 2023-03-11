@@ -8,6 +8,7 @@ import CharactersList from "../../charactersList/CharactersList";
 import useApi from "../../../services/useApi";
 
 import "./locations-page.scss";
+import ErrorBoundery from "../../errorBoundary/ErrorBoundery";
 
 const LocationsPage = () => {
     const [episodes, setEpisodes] = useState([]);
@@ -83,39 +84,51 @@ const LocationsPage = () => {
             ) : (
                 <>
                     <Salutation />
+
                     <div className="locations">
                         <h1 className="page-title">Locations</h1>
 
-                        <h4 className="locations__title page-title__2">
-                            Pick location
-                        </h4>
-                        <Accordion
-                            customClass={"locations__accordion"}
-                            id={0}
-                            initialValue={1}
-                            accordion={accordion}
-                            toggleAccordion={toggleAccordion}
-                            onCurrentCategoryChange={onCurrentCategoryChange}
-                        />
+                        {!error && (
+                            <>
+                                <h4 className="locations__title page-title__2">
+                                    Pick location
+                                </h4>
 
-                        <div className="locations__location-info">
-                            <h1 className="locations__title">
-                                Location: <span>{episodesInfo.name}</span>
-                            </h1>
-                            <h3 className="locations__title">
-                                Dimension: <span>{episodesInfo.dimension}</span>
-                            </h3>
-                            <h4 className="locations__title">
-                                Type: <span>{episodesInfo.type}</span>
-                            </h4>
-                        </div>
+                                <Accordion
+                                    customClass={"locations__accordion"}
+                                    id={0}
+                                    initialValue={1}
+                                    accordion={accordion}
+                                    toggleAccordion={toggleAccordion}
+                                    onCurrentCategoryChange={
+                                        onCurrentCategoryChange
+                                    }
+                                />
 
-                        <CharactersList
-                            page={"/locations/"}
-                            data={episodes}
-                            loading={loading}
-                            error={error}
-                        />
+                                <div className="locations__location-info">
+                                    <h1 className="locations__title">
+                                        Location:{" "}
+                                        <span>{episodesInfo.name}</span>
+                                    </h1>
+                                    <h3 className="locations__title">
+                                        Dimension:{" "}
+                                        <span>{episodesInfo.dimension}</span>
+                                    </h3>
+                                    <h4 className="locations__title">
+                                        Type: <span>{episodesInfo.type}</span>
+                                    </h4>
+                                </div>
+                            </>
+                        )}
+
+                        <ErrorBoundery>
+                            <CharactersList
+                                page={"/locations/"}
+                                data={episodes}
+                                loading={loading}
+                                error={error}
+                            />
+                        </ErrorBoundery>
                     </div>
                 </>
             )}

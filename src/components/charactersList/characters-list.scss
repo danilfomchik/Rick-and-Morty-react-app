@@ -9,6 +9,18 @@
     max-width: 1920px;
     margin: 30px 0px;
 
+    .error-component{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2{
+            color: #61de2a;
+            background: rgb(32, 35, 41);
+            padding: 5px 15px;
+        }
+    }
+
     a{
         text-decoration: none;
 

@@ -4,6 +4,7 @@ import { useOutlet, Outlet } from "react-router-dom";
 import Salutation from "../../salutation/Salutation";
 import Accordion from "../../accordion/Accordion";
 import CharactersList from "../../charactersList/CharactersList";
+import ErrorBoundery from "../../errorBoundary/ErrorBoundery";
 
 import useApi from "../../../services/useApi";
 
@@ -84,36 +85,48 @@ const EpisodesPage = () => {
             ) : (
                 <>
                     <Salutation />
+
                     <div className="episodes">
                         <h1 className="page-title">Episodes</h1>
 
-                        <h4 className="episodes__title page-title__2">
-                            Pick Episode
-                        </h4>
-                        <Accordion
-                            customClass={"episodes__accordion"}
-                            id={0}
-                            initialValue={1}
-                            accordion={accordion}
-                            toggleAccordion={toggleAccordion}
-                            onCurrentCategoryChange={onCurrentCategoryChange}
-                        />
+                        {!error && (
+                            <>
+                                <h4 className="episodes__title page-title__2">
+                                    Pick Episode
+                                </h4>
 
-                        <div className="episodes__episode-info">
-                            <h1 className="episodes__title">
-                                Episode name: <span>{episodesInfo.name}</span>
-                            </h1>
-                            <h3 className="episodes__title">
-                                Air date: <span>{episodesInfo.air_date}</span>
-                            </h3>
-                        </div>
+                                <Accordion
+                                    customClass={"episodes__accordion"}
+                                    id={0}
+                                    initialValue={1}
+                                    accordion={accordion}
+                                    toggleAccordion={toggleAccordion}
+                                    onCurrentCategoryChange={
+                                        onCurrentCategoryChange
+                                    }
+                                />
 
-                        <CharactersList
-                            page={"/episodes/"}
-                            data={episodes}
-                            loading={loading}
-                            error={error}
-                        />
+                                <div className="episodes__episode-info">
+                                    <h1 className="episodes__title">
+                                        Episode name:{" "}
+                                        <span>{episodesInfo.name}</span>
+                                    </h1>
+                                    <h3 className="episodes__title">
+                                        Air date:{" "}
+                                        <span>{episodesInfo.air_date}</span>
+                                    </h3>
+                                </div>
+                            </>
+                        )}
+
+                        <ErrorBoundery>
+                            <CharactersList
+                                page={"/episodes/"}
+                                data={episodes}
+                                loading={loading}
+                                error={error}
+                            />
+                        </ErrorBoundery>
                     </div>
                 </>
             )}

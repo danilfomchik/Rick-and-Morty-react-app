@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import CharactersItem from "../charactersItem/CharactersItem";
 import PagesBlock from "../pagesBlock/PagesBlock";
 import Spinner from "../spinner/Spinner";
+import ErrorMessage from "../errorMessage/ErrorMessage";
 
 import useGettingData from "../../hooks/useGettingData";
 import useApi from "../../services/useApi";
@@ -36,7 +37,8 @@ const CharactersList = ({ data, loading, error, page }) => {
     const spinner = loading && <Spinner />;
 
     // сделать компонент ошибки
-    const errorMessage = error && <h1>Error!</h1>;
+    const errorMessage = error && <ErrorComponent />;
+    // const errorMessage = error && <h1>Error!</h1>;
 
     return (
         <>
@@ -46,6 +48,15 @@ const CharactersList = ({ data, loading, error, page }) => {
                 {content}
             </div>
         </>
+    );
+};
+
+const ErrorComponent = () => {
+    return (
+        <div className="error-component">
+            <ErrorMessage />
+            <h2>Something went wrong...</h2>
+        </div>
     );
 };
 
