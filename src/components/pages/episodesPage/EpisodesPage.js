@@ -6,77 +6,25 @@ import Accordion from "../../accordion/Accordion";
 import CharactersList from "../../charactersList/CharactersList";
 import ErrorBoundery from "../../errorBoundary/ErrorBoundery";
 
+import useData from "../../../hooks/useData";
 import useApi from "../../../services/useApi";
 
 import "./episodes-page.scss";
 
 const EpisodesPage = () => {
-    const [episodes, setEpisodes] = useState([]);
-    const [episodesInfo, setEpisodesInfo] = useState({});
-    const [episodesCount, setEpisodesCount] = useState(0);
-
     const outlet = useOutlet();
 
-    const [accordion, setAccordion] = useState({
-        id: 0,
-        title: "",
-        categories: [],
-        currentValue: 1,
-        open: false,
-    });
-
-    const [currentEpisode, setCurrentEpisode] = useState(1);
-
-    const { loading, error, getEpisode, getDataCount, clearError } = useApi();
-
-    useEffect(() => {
-        getDataCount("episode").then((count) => {
-            setEpisodesCount(count);
-            setAccordion((prev) => ({
-                ...prev,
-                categories: setLocationAccordion(count),
-            }));
-        });
-    }, []);
-
-    useEffect(() => {
-        clearError();
-
-        getEpisode(currentEpisode).then((data) => {
-            setEpisodesInfo(data.info);
-            setEpisodes(data.result);
-        });
-    }, [currentEpisode]);
-
-    const setLocationAccordion = (amount) => {
-        let result = [];
-
-        for (let i = 1; i <= amount; i++) {
-            result.push(i);
-        }
-
-        return result;
-    };
-
-    const toggleAccordion = (e) => {
-        if (!e.target.classList.contains("accordion-container__content")) {
-            setAccordion((prev) => ({
-                ...prev,
-                open: !prev.open,
-            }));
-        }
-    };
-
-    const onCurrentCategoryChange = (e, accordiontId, currentValue) => {
-        e.stopPropagation();
-
-        setAccordion((prev) => ({
-            ...prev,
-            currentValue,
-        }));
-
-        setCurrentEpisode(currentValue);
-    };
+    const { loading, error, getEpisode } = useApi();
+    const {
+        toggleAccordion,
+        onCurrentCategoryChange,
+        data,
+        dataInfo,
+        dataCount,
+        currentData,
+        accordion,
+        onCharacterCLick,
+    } = useData(getEpisode, "episode");
 
     return (
         <>
@@ -109,11 +57,11 @@ const EpisodesPage = () => {
                                 <div className="episodes__episode-info">
                                     <h1 className="episodes__title">
                                         Episode name:{" "}
-                                        <span>{episodesInfo.name}</span>
+                                        <span>{dataInfo.name}</span>
                                     </h1>
                                     <h3 className="episodes__title">
                                         Air date:{" "}
-                                        <span>{episodesInfo.air_date}</span>
+                                        <span>{dataInfo.air_date}</span>
                                     </h3>
                                 </div>
                             </>
@@ -122,9 +70,10 @@ const EpisodesPage = () => {
                         <ErrorBoundery>
                             <CharactersList
                                 page={"/episodes/"}
-                                data={episodes}
+                                data={data}
                                 loading={loading}
                                 error={error}
+                                onCharacterCLick={onCharacterCLick}
                             />
                         </ErrorBoundery>
                     </div>

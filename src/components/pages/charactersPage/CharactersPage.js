@@ -1,8 +1,14 @@
-import { useState, createContext, useRef, useEffect } from "react";
+import {
+    useState,
+    createContext,
+    useRef,
+    useEffect,
+    useTransition,
+} from "react";
 import { useOutlet, Outlet } from "react-router-dom";
 
 import useApi from "../../../services/useApi";
-import useGettingData from "../../../hooks/useGettingData";
+// import useGettingData from "../../../hooks/useGettingData";
 import { useCurrentPage } from "../../../hooks/useCurrentPage";
 
 import Salutation from "../../salutation/Salutation";
@@ -18,6 +24,7 @@ export const CharactersPage = () => {
     const [query, setQuery] = useState("");
     const [data, setData] = useState([]);
 
+    const [isPending, startTransition] = useTransition();
     const outlet = useOutlet();
 
     const searchRef = useRef(null);
@@ -78,8 +85,10 @@ export const CharactersPage = () => {
     };
 
     const onCharactersLoaded = (data) => {
+        // startTransition(() => {
         setData(data.result);
         setAllPagesCount(data.pages);
+        // });
     };
 
     useEffect(() => {
@@ -121,26 +130,27 @@ export const CharactersPage = () => {
                             Characters
                         </h1>
 
-                        {!error && (
-                            <div className="characters__filter-panel">
-                                <SearchPanel
-                                    currentPageControls={currentPageControls}
-                                    searchRef={searchRef}
-                                    query={query}
-                                    setQuery={setQuery}
-                                />
+                        <div className="characters__filter-panel">
+                            <SearchPanel
+                                currentPageControls={currentPageControls}
+                                searchRef={searchRef}
+                                query={query}
+                                setQuery={setQuery}
+                                startTransition={startTransition}
+                            />
 
-                                <div className="filter-panel__clear-btn">
-                                    <span onClick={onClearFilters}>Clear</span>
-                                </div>
-
-                                <FilterPanel
-                                    currentPageControls={currentPageControls}
-                                    accordions={accordions}
-                                    setAccordions={setAccordions}
-                                />
+                            <div className="filter-panel__clear-btn">
+                                <span onClick={onClearFilters}>Clear</span>
                             </div>
-                        )}
+
+                            <FilterPanel
+                                currentPageControls={currentPageControls}
+                                accordions={accordions}
+                                setAccordions={setAccordions}
+                            />
+                        </div>
+
+                        {/* {isPending && <h1>rendering</h1>} */}
 
                         <ErrorBoundery>
                             <CharactersList
@@ -149,6 +159,7 @@ export const CharactersPage = () => {
                                 loading={loading}
                                 error={error}
                                 currentPageControls={currentPageControls}
+                                onCharacterCLick={onClearFilters}
                             />
                         </ErrorBoundery>
 

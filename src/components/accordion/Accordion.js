@@ -17,7 +17,11 @@ const Accordion = ({
     const onCategoryClick = (e, category) => {
         onCategoryCheck(category);
         toggleAccordion(e, id);
-        onCurrentCategoryChange(e, accordion.id, currentValue.current);
+        onCurrentCategoryChange({
+            e,
+            accordiontId: accordion.id,
+            currentValue: currentValue.current,
+        });
         // onCurrentCategoryChange({e, accordionId: accordion.id, currentValue: currentValue.current});
     };
 

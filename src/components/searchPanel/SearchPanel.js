@@ -6,10 +6,13 @@ function arePropsEqual(prevProps, nextProps) {
 }
 
 const SearchPanel = memo(
-    ({ query, setQuery, searchRef, currentPageControls }) => {
+    ({ query, setQuery, searchRef, currentPageControls, startTransition }) => {
         const onValueChange = (value) => {
             currentPageControls.resetCurrentPage();
+
+            // startTransition(() => {
             setQuery(value);
+            // });
         };
 
         return (

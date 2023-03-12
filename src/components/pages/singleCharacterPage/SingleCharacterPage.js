@@ -30,7 +30,6 @@ function SingleCharacterPage() {
         charStatus = charStatus;
     }
 
-    // сделать компонент с отображением ошибки (dead morty)
     const errorMessage = error && <Page404 />;
 
     const spinner = loading && <Spinner />;

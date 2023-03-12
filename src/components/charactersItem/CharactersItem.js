@@ -10,6 +10,7 @@ const CharactersItem = ({
     species,
     status,
     page,
+    onCharacterCLick,
 }) => {
     // console.log(species, status);
 
@@ -24,7 +25,11 @@ const CharactersItem = ({
     }
 
     return (
-        <Link className="characters-list__item" to={`${page}${id}`}>
+        <Link
+            className="characters-list__item"
+            to={`${page}${id}`}
+            onClick={onCharacterCLick}
+        >
             <div className="characters-list__item-avatar">
                 <img src={thumbnail} alt={name} />
             </div>

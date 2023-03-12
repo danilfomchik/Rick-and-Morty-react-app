@@ -5,12 +5,12 @@ import PagesBlock from "../pagesBlock/PagesBlock";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
-import useGettingData from "../../hooks/useGettingData";
+// import useGettingData from "../../hooks/useGettingData";
 import useApi from "../../services/useApi";
 
 import "./characters-list.scss";
 
-const CharactersList = ({ data, loading, error, page }) => {
+const CharactersList = ({ data, loading, error, page, onCharacterCLick }) => {
     // console.log(data);
 
     const renderCharacters = useCallback(
@@ -25,6 +25,7 @@ const CharactersList = ({ data, loading, error, page }) => {
                     species={char.species}
                     status={char.status}
                     page={page}
+                    onCharacterCLick={onCharacterCLick}
                 />
             ));
         },
