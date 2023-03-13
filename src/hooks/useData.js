@@ -79,8 +79,6 @@ function useData(getDataFunc, param) {
         onCharacterCLick,
         data,
         dataInfo,
-        dataCount,
-        currentData,
         accordion,
     };
 }

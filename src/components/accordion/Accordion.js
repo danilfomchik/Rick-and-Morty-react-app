@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import useFilter from "../../hooks/useFilter";
 
 import "./accordion.scss";
@@ -22,7 +20,6 @@ const Accordion = ({
             accordiontId: accordion.id,
             currentValue: currentValue.current,
         });
-        // onCurrentCategoryChange({e, accordionId: accordion.id, currentValue: currentValue.current});
     };
 
     return (

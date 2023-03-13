@@ -20,8 +20,6 @@ const EpisodesPage = () => {
         onCurrentCategoryChange,
         data,
         dataInfo,
-        dataCount,
-        currentData,
         accordion,
         onCharacterCLick,
     } = useData(getEpisode, "episode");

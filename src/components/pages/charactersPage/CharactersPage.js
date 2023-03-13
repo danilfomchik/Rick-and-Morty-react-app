@@ -1,14 +1,7 @@
-import {
-    useState,
-    createContext,
-    useRef,
-    useEffect,
-    useTransition,
-} from "react";
+import { useState, useRef, useEffect, useTransition } from "react";
 import { useOutlet, Outlet } from "react-router-dom";
 
 import useApi from "../../../services/useApi";
-// import useGettingData from "../../../hooks/useGettingData";
 import { useCurrentPage } from "../../../hooks/useCurrentPage";
 
 import Salutation from "../../salutation/Salutation";
@@ -24,7 +17,7 @@ export const CharactersPage = () => {
     const [query, setQuery] = useState("");
     const [data, setData] = useState([]);
 
-    const [isPending, startTransition] = useTransition();
+    // const [isPending, startTransition] = useTransition();
     const outlet = useOutlet();
 
     const searchRef = useRef(null);
@@ -85,10 +78,8 @@ export const CharactersPage = () => {
     };
 
     const onCharactersLoaded = (data) => {
-        // startTransition(() => {
         setData(data.result);
         setAllPagesCount(data.pages);
-        // });
     };
 
     useEffect(() => {
@@ -136,7 +127,7 @@ export const CharactersPage = () => {
                                 searchRef={searchRef}
                                 query={query}
                                 setQuery={setQuery}
-                                startTransition={startTransition}
+                                // startTransition={startTransition}
                             />
 
                             <div className="filter-panel__clear-btn">

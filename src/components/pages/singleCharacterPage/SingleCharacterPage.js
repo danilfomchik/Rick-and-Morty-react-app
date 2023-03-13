@@ -20,22 +20,10 @@ function SingleCharacterPage() {
         getSingleCharacter(charId).then(setCharacterInfo);
     }, [charId]);
 
-    let charStatus = "characters-list__item-status";
-
-    if (characterInfo.status === "Alive") {
-        charStatus += " alive";
-    } else if (characterInfo.status === "Dead") {
-        charStatus += " dead";
-    } else {
-        charStatus = charStatus;
-    }
-
     const errorMessage = error && <Page404 />;
 
     const spinner = loading && <Spinner />;
-    const content = !loading && !error && (
-        <View character={characterInfo} charStatus={charStatus} />
-    );
+    const content = !loading && !error && <View character={characterInfo} />;
 
     return (
         <div className="single-character">
@@ -46,7 +34,7 @@ function SingleCharacterPage() {
     );
 }
 
-const View = ({ character, charStatus }) => {
+const View = ({ character }) => {
     const { name, thumbnail, status, species, gender, origin, location } =
         character;
     const navigate = useNavigate();
@@ -62,7 +50,11 @@ const View = ({ character, charStatus }) => {
 
                 <div className="characters-list__item-info">
                     <h2>{name}</h2>
-                    <div className={charStatus}>
+                    <div
+                        className={`characters-list__item-status ${
+                            status ? status.toLowerCase() : ""
+                        }`}
+                    >
                         <span>
                             {status} - {species}
                         </span>

@@ -20,8 +20,6 @@ const LocationsPage = () => {
         onCurrentCategoryChange,
         data,
         dataInfo,
-        dataCount,
-        currentData,
         accordion,
         onCharacterCLick,
     } = useData(getLocation, "location");

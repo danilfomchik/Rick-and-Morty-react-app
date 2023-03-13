@@ -5,7 +5,7 @@ import arrow from "../../resources/down-arrow-2.png";
 
 import "./return-btn.scss";
 
-function ReturnButton({ title, redirect }) {
+function ReturnButton({ title }) {
     const navigate = useNavigate();
 
     return (

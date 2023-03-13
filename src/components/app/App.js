@@ -3,9 +3,6 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
-import rickAndMorty from "../../resources/rick-and-morty.png";
-import rickAndMortyMain from "../../resources/rick-and-morty-main.png";
-
 import SingleCharacterPage from "../pages/singleCharacterPage/SingleCharacterPage";
 import AppHeader from "../appHeader/AppHeader";
 import Footer from "../footer/Footer";
@@ -54,7 +51,6 @@ function App() {
                                 />
                             </Route>
 
-                            {/* // сделать компонент с отображением ошибки (dead morty) */}
                             <Route path="*" element={<Page404 />}></Route>
                         </Routes>
                     </Suspense>
