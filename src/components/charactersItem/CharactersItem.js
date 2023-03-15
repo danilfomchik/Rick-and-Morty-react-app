@@ -4,6 +4,7 @@ import "./characters-list-item.scss";
 
 const CharactersItem = ({ char, page, onCharacterCLick }) => {
     return (
+        // <div className="characters-list__item">
         <Link
             className="characters-list__item"
             to={`${page}${char.id}`}
@@ -28,6 +29,7 @@ const CharactersItem = ({ char, page, onCharacterCLick }) => {
                 </div>
             </div>
         </Link>
+        // </div>
     );
 };
 

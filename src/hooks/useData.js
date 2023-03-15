@@ -70,7 +70,12 @@ function useData(getDataFunc, param) {
     };
 
     const onCharacterCLick = () => {
-        onCurrentCategoryChange({ currentValue: 1 });
+        setAccordion((prev) => ({
+            ...prev,
+            currentValue: 1,
+        }));
+
+        setCurrentData(1);
     };
 
     return {

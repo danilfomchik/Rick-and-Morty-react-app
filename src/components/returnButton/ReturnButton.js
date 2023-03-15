@@ -11,7 +11,7 @@ function ReturnButton({ title }) {
     return (
         <div className="return-back__btn" onClick={() => navigate(-1)}>
             <span>{title}</span>
-            <img src={arrow} alt="Arrow" />
+            <img src={arrow} className="arrow" alt="Arrow" />
         </div>
     );
 }

@@ -1,5 +1,7 @@
 import useFilter from "../../hooks/useFilter";
 
+import arrow from "../../resources/down-arrow-2.png";
+
 import "./accordion.scss";
 
 const Accordion = ({
@@ -33,6 +35,8 @@ const Accordion = ({
                 {accordion.currentValue === ""
                     ? accordion.title
                     : accordion.currentValue}
+
+                <img src={arrow} className="arrow" alt="Arrow" />
             </div>
             <div className="accordion-container__content">
                 {accordion.categories.map((category, i) => (

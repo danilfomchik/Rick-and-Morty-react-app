@@ -6,9 +6,9 @@
     border: 2px solid #61de2a;
     border-radius: 15px;
     box-shadow: 0px 0px 6px 1px #61de2a;
-    background-color: rgba(255, 255, 255, 0.57);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255);
+    // -webkit-backdrop-filter: blur(4px);
+    // backdrop-filter: blur(4px);
     flex: 1 1 400px;
     cursor: pointer;
 
@@ -20,30 +20,43 @@
     }
 
     &__title{
-        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+
+        // position: relative;
         font-size: 20px;
-        padding: 0px 20px 0px 0px;
+        // padding: 0px 20px 0px 0px;
 
         transition: all 0.4s ease;
-        // transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
 
-        &::after{
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 40px;
-            transform: translateY(-50%);
+        .arrow{
             width: 20px;
             height: 20px;
-
-            background-image: url('../../resources/down-arrow-2.png');
-            background-position: center;
-            background-size: contain;
-            background-repeat: no-repeat;
-
-            transition: all 0.4s ease-out;
-            // transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
+            margin: 0px 0px 0px 20px;
+            // transform: translateY(-50%);
+            transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
         }
+        // transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
+
+        // &::after{
+        //     content: '';
+        //     position: absolute;
+        //     top: 50%;
+        //     right: 40px;
+        //     transform: translateY(-50%);
+        //     width: 20px;
+        //     height: 20px;
+
+        //     background-image: url('../../resources/down-arrow-2.png');
+        //     background-position: center;
+        //     background-size: contain;
+        //     background-repeat: no-repeat;
+
+        //     transition: all 0.4s ease-out;
+        //     // transition: all 0.4s cubic-bezier(0.28, 1.1, 1, 1);
+        // }
     }
 
     &__content{
@@ -61,8 +74,8 @@
 
     &.open{
         .accordion-container__title{
-            &::after{
-               transform: translateY(-50%) rotate(180deg);
+            .arrow{
+               transform: rotate(180deg);
             }
         }
     
