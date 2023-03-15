@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import arrow from "../../resources/down-arrow-2.png";
+import arrow from "../../resources/left-arrow.png";
 
 import "./return-btn.scss";
 

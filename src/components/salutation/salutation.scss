@@ -4,7 +4,6 @@
     display: flex;
     color: $text-color;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
     padding: 20px 0px 70px;
@@ -34,5 +33,36 @@
   
     &-image{
       flex-basis: 50%;
+
+      .rick-and-morty__main-image{
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+}
+
+@media (max-width: 1240px)  {
+  .salutation{
+  
+    &-content{
+      padding: 0px 0px 0px 0px;
     }
   }
+}
+
+@media (max-width: 990px) {}
+
+@media (max-width: 768px) {
+  .salutation{
+  
+    &-content{
+      h1{
+        font-size: 35px;
+      }
+
+      p{
+        font-size: 14px;
+      }
+    }
+  }
+}
