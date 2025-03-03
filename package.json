@@ -4,6 +4,18 @@
   "proxy": "https://rickandmortyapi.com/api",
   "homepage": "https://rick-and-morty-react-app-ruby.vercel.app/",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format:all": "prettier --log-level warn --write .",
+    "format:file": "prettier --log-level warn --write",
+    "format:check:all": "prettier --log-level warn --check .",
+    "lint": "eslint .",
+    "lint:all": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "lint:file": "eslint --report-unused-disable-directives --max-warnings 0"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -18,18 +30,6 @@
     "sass": "^1.58.0",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -41,5 +41,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "prettier": "3.5.3"
   }
 }
