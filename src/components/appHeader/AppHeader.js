@@ -1,4 +1,10 @@
-import { Link, NavLink } from "react-router-dom";
+import {
+    Link,
+    NavLink,
+    useLocation,
+    useMatch,
+    matchRoutes,
+} from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 import rickAndMorty from "../../resources/rick-and-morty.png";
@@ -13,6 +19,19 @@ const setActiveClass = ({ isActive }) =>
 
 const AppHeader = () => {
     const [isBurgerActive, setIsBurgerActive] = useState(false);
+
+    // const currentLocation = useLocation();
+    // const routes = [{ path: "characters/:charId" }];
+    // const [{ route }] = matchRoutes(routes, currentLocation);
+
+    // const isCharactersMatch = useMatch(route.path);
+    // const location = useLocation();
+
+    useEffect(() => {
+        // console.log(route.path);
+        // console.log(currentLocation);
+        // console.log(isCharactersMatch);
+    });
 
     // useEffect(() => {
     //     const appElement = document.querySelector(".app").style;
