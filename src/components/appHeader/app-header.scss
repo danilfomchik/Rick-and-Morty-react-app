@@ -62,12 +62,12 @@ a.app-header__navigation-link__primary{
 }
 
 a.app-header__navigation-link__active{
-    color: #ffffff;
-    background-color: #202329;
+    color: #202329;
+    background-color: #ffffff;
     border: 3px solid #ffffff;
     
     &:hover{
-        color: #ffffff;
+        color: #202329;
     }
 }
 

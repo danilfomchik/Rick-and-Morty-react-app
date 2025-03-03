@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useTransition } from "react";
 import { useOutlet, Outlet } from "react-router-dom";
-
 import useApi from "../../../services/useApi";
 import { useCurrentPage } from "../../../hooks/useCurrentPage";
 
