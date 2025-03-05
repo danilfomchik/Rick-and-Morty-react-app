@@ -1,5 +1,3 @@
-# Marvel App (React)
-
 A React application that displays information about characters from the **Rick and Morty** universe using the [Rick and Morty API](https://rickandmortyapi.com/).
 
 Live demo: [Demo](https://rick-and-morty-react-app-ruby.vercel.app/).
@@ -50,5 +48,3 @@ Coming soon...
 ## 📜 License
 
 This project is licensed under the **MIT License**.
-
-Feel free to contribute or open issues if you find any bugs! 🚀
