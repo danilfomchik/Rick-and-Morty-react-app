@@ -1,23 +1,21 @@
-import { Component } from "react";
+import {Component} from 'react';
 
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
-class ErrorBoundery extends Component{
+class ErrorBoundery extends Component {
     state = {
-        error: false
-    }
+        error: false,
+    };
 
-    componentDidCatch = (error, errorInfo) => {
-        console.log(error, errorInfo);
-
+    componentDidCatch = () => {
         this.setState({
-            error: true
-        })
-    }
+            error: true,
+        });
+    };
 
     render() {
-        if(this.state.error){
-            return <ErrorMessage/>
+        if (this.state.error) {
+            return <ErrorMessage />;
         }
 
         return this.props.children;

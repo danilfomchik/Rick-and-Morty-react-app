@@ -9,7 +9,5 @@ export const getPageIntersection = (pages, currentPage) => {
         }
     }
 
-    // добавить правильное отображение "..."
-
     return new Set([...startPages, ...intersection, ...endPages]);
 };

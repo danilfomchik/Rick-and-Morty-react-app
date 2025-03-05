@@ -1,19 +1,19 @@
 @import '../../style/variables.scss';
 
-.characters-list__pages{
+.characters-list__pages {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
     padding: 20px 0px 0px;
 
-    &-page{
+    &-page {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        box-shadow: 0px 0px 8px 2px #2f362f;
-        background: #2f362f;
+        box-shadow: 0px 0px 8px 2px $text-color;
+        background: $text-color;
         border: none;
         color: #ffffff;
         border-radius: 11px;
@@ -23,17 +23,17 @@
         flex-basis: 40px;
         cursor: pointer;
 
-        p{
+        p {
             line-height: 16px;
         }
 
-        &:hover{
-            color: #2f362f;
+        &:hover {
+            color: $text-color;
             background-color: #ffffff;
         }
 
-        &.active{
-            color: #2f362f;
+        &.active {
+            color: $text-color;
             background-color: #ffffff;
             pointer-events: none;
         }

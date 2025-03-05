@@ -1,15 +1,14 @@
-import { useState, memo, useEffect, useRef } from "react";
+import {memo, useCallback, useMemo} from 'react';
 
-import useFilter from "../../hooks/useFilter";
+import Accordion from '../accordion/Accordion';
+import './filter-panel.scss';
 
-import Accordion from "../accordion/Accordion";
+const FilterPanel = ({resetCurrentPage, accordions, setAccordions}) => {
+    const hasSelectedFilter = useMemo(() => accordions.some(accordion => accordion.currentValue), [accordions]);
 
-import "./filter-panel.scss";
-
-const FilterPanel = memo(
-    ({ currentPageControls, accordions, setAccordions }) => {
-        const toggleAccordion = (e, index) => {
-            if (!e.target.classList.contains("accordion-container__content")) {
+    const toggleAccordion = useCallback(
+        (e, index) => {
+            if (!e.target.classList.contains('accordion-container__content')) {
                 setAccordions(
                     accordions.map((accordion, i) => {
                         if (i === index) {
@@ -19,17 +18,20 @@ const FilterPanel = memo(
                         }
 
                         return accordion;
-                    })
+                    }),
                 );
             }
-        };
+        },
+        [accordions, setAccordions],
+    );
 
-        const onCurrentCategoryChange = ({ e, accordiontId, currentValue }) => {
+    const onCurrentCategoryChange = useCallback(
+        ({e, accordiontId, currentValue}) => {
             e.stopPropagation();
-            currentPageControls.resetCurrentPage();
+            resetCurrentPage();
 
-            setAccordions(
-                accordions.map((accordion) => {
+            setAccordions(prev =>
+                prev.map(accordion => {
                     if (accordion.id === accordiontId) {
                         return {
                             ...accordion,
@@ -38,25 +40,44 @@ const FilterPanel = memo(
                     } else {
                         return accordion;
                     }
-                })
+                }),
             );
-        };
+        },
+        [resetCurrentPage, setAccordions],
+    );
 
-        return (
+    const onClearFilters = useCallback(() => {
+        setAccordions(prev =>
+            prev.map(accordion => {
+                return {
+                    ...accordion,
+                    currentValue: '',
+                };
+            }),
+        );
+
+        resetCurrentPage();
+    }, [setAccordions, resetCurrentPage]);
+
+    return (
+        <>
+            <div className="filter-panel__clear-btn">
+                {hasSelectedFilter && <span onClick={onClearFilters}>Clear</span>}
+            </div>
+
             <div className="accordion__wrapper">
                 {accordions.map((accordion, i) => (
                     <Accordion
                         id={i}
                         key={i}
-                        initialValue={""}
                         accordion={accordion}
                         toggleAccordion={toggleAccordion}
                         onCurrentCategoryChange={onCurrentCategoryChange}
                     />
                 ))}
             </div>
-        );
-    }
-);
+        </>
+    );
+};
 
-export default FilterPanel;
+export default memo(FilterPanel);

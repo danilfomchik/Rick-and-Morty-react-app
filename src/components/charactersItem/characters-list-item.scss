@@ -1,4 +1,6 @@
-.characters-list__item{
+@import '../../style/variables.scss';
+
+.characters-list__item {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -8,16 +10,19 @@
     color: #ffffff;
     border-radius: 10px;
     height: 235px;
-    margin: 10px 20px;
-    box-shadow: 0px 0px 9px 1px #2f362f;
+    box-shadow: 0px 0px 9px 1px #2f362f9e;
     background-color: rgb(87 87 87);
-    // backdrop-filter: blur(4px);
+    transition: all 150ms ease-in;
 
-    &-avatar{
+    &:hover {
+        box-shadow: 0px 0px 9px 1px $text-color;
+    }
+
+    &-avatar {
         flex: 2 1 0%;
         width: 100%;
 
-        img{
+        img {
             height: 100%;
             width: 100%;
             margin: 0;
@@ -26,7 +31,7 @@
         }
     }
 
-    &-info{
+    &-info {
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -34,33 +39,33 @@
         text-align: left;
         padding: 10px 10px 10px 20px;
 
-        h2{
+        h2 {
             font-weight: bold;
         }
     }
 
-    &-location{
+    &-location {
         padding: 0px 0px 20px 0px;
         margin-top: auto;
 
-        p{
+        p {
             color: #ffffffa8;
         }
 
-        span{
+        span {
             font-size: 20px;
         }
     }
 
-    &-status{
+    &-status {
         display: flex;
         align-items: center;
 
-        span{
+        span {
             font-size: 18px;
             padding: 0px 0px 0px 5px;
         }
-        
+
         &:before {
             content: '';
             display: inline-block;
@@ -73,14 +78,14 @@
             padding: 0px 10px 0px 0px;
         }
 
-        &.alive{
-            &:before{
+        &.alive {
+            &:before {
                 background-color: rgb(85, 204, 68);
             }
         }
 
-        &.dead{
-            &:before{
+        &.dead {
+            &:before {
                 background-color: rgb(214, 61, 46);
             }
         }
@@ -88,15 +93,15 @@
 }
 
 @media (max-width: 768px) {
-    .characters-list__item{
+    .characters-list__item {
         flex-direction: column;
         height: auto;
 
-        &-status{
+        &-status {
             margin-bottom: 30px;
         }
 
-        &-info{
+        &-info {
             padding: 20px 20px 10px 20px;
         }
     }

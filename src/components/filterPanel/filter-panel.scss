@@ -1,4 +1,4 @@
-.accordion__wrapper{
+.accordion__wrapper {
     display: flex;
     margin: 0px auto;
     padding: 0px 0px 60px;
@@ -6,4 +6,5 @@
     flex-wrap: wrap;
     flex-direction: row;
     align-items: flex-start;
+    gap: 30px;
 }

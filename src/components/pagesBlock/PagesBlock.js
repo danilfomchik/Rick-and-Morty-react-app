@@ -1,24 +1,17 @@
-import { getPageIntersection } from "../../helpers/getPageIntersection";
+import {memo} from 'react';
 
-import "./pages-block.scss";
+import {getPageIntersection} from '../../helpers/getPageIntersection';
+import './pages-block.scss';
 
-const PagesBlock = ({ controls, searchRef }) => {
-    const {
-        allPagesCount,
-        currentPage,
-        increaseCurrentPage,
-        decreaseCurrentPage,
-        setNewPage,
-    } = controls;
-
+const PagesBlock = ({allPagesCount, currentPage, increaseCurrentPage, decreaseCurrentPage, setNewPage, searchRef}) => {
     const onPageChange = () => {
         searchRef.current.scrollIntoView({
-            block: "center",
-            behavior: "smooth",
+            block: 'center',
+            behavior: 'smooth',
         });
     };
 
-    const renderPages = (pagesCount) => {
+    const renderPages = pagesCount => {
         let pages = [];
 
         for (let page = 0; page < pagesCount; page++) {
@@ -32,23 +25,17 @@ const PagesBlock = ({ controls, searchRef }) => {
                         setNewPage(currPage);
                     }}
                     className={
-                        currPage === currentPage
-                            ? "characters-list__pages-page active"
-                            : "characters-list__pages-page"
-                    }
-                >
+                        currPage === currentPage ? 'characters-list__pages-page active' : 'characters-list__pages-page'
+                    }>
                     <p>{currPage}</p>
-                </div>
+                </div>,
             );
         }
 
         return pages;
     };
 
-    const pagesBlocks = getPageIntersection(
-        renderPages(allPagesCount),
-        currentPage
-    );
+    const pagesBlocks = getPageIntersection(renderPages(allPagesCount), currentPage);
 
     return (
         <div className="characters-list__pages">
@@ -58,8 +45,7 @@ const PagesBlock = ({ controls, searchRef }) => {
                     decreaseCurrentPage();
                 }}
                 className="button characters-list__pages-page"
-                disabled={currentPage === 1}
-            >
+                disabled={currentPage === 1}>
                 <p>Prev</p>
             </button>
             {pagesBlocks}
@@ -69,12 +55,11 @@ const PagesBlock = ({ controls, searchRef }) => {
                     increaseCurrentPage();
                 }}
                 className="button characters-list__pages-page"
-                disabled={currentPage === allPagesCount}
-            >
+                disabled={currentPage === allPagesCount}>
                 <p>Next</p>
             </button>
         </div>
     );
 };
 
-export default PagesBlock;
+export default memo(PagesBlock);

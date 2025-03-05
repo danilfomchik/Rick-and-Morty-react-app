@@ -1,120 +1,75 @@
-import {
-    Link,
-    NavLink,
-    useLocation,
-    useMatch,
-    matchRoutes,
-} from "react-router-dom";
-import { Container } from "react-bootstrap";
+import {useState} from 'react';
+import {Link, NavLink, useLocation} from 'react-router-dom';
 
-import rickAndMorty from "../../resources/rick-and-morty.png";
+import rickAndMorty from '../../resources/rick-and-morty.png';
+import './app-header.scss';
 
-import "./app-header.scss";
-import { useEffect, useState } from "react";
-
-const setActiveClass = ({ isActive }) =>
-    isActive
-        ? "app-header__navigation-link__active"
-        : "app-header__navigation-link__primary";
+const setActiveClass = ({isActive}) =>
+    isActive ? 'app-header__navigation-link__active' : 'app-header__navigation-link__primary';
 
 const AppHeader = () => {
     const [isBurgerActive, setIsBurgerActive] = useState(false);
 
-    // const currentLocation = useLocation();
-    // const routes = [{ path: "characters/:charId" }];
-    // const [{ route }] = matchRoutes(routes, currentLocation);
-
-    // const isCharactersMatch = useMatch(route.path);
-    // const location = useLocation();
-
-    useEffect(() => {
-        // console.log(route.path);
-        // console.log(currentLocation);
-        // console.log(isCharactersMatch);
-    });
-
-    // useEffect(() => {
-    //     const appElement = document.querySelector(".app").style;
-
-    //     isBurgerActive
-    //         ? (appElement.overflow = "hidden")
-    //         : (appElement.overflow = "auto");
-    // }, [isBurgerActive]);
+    const {pathname} = useLocation();
 
     return (
         <header className="app-header">
             <div className="app-header__container">
-                {/* <nav> */}
-                <Link to="/" className="app-header__navigation-link__logo">
-                    <img
-                        className="app-header__logo"
-                        src={rickAndMorty}
-                        alt="Rick and Morty"
-                    />
-                </Link>
+                <nav>
+                    <Link to="/" className="app-header__mobile-logo">
+                        <img className="app-header__logo" src={rickAndMorty} alt="Rick and Morty" />
+                    </Link>
 
-                <ul
-                    className={`app-header__navigation ${
-                        isBurgerActive ? "active" : ""
-                    }`}
-                >
-                    <li className="app-header__navigation-link">
-                        <NavLink
-                            to="/"
-                            className={setActiveClass}
-                            onClick={() => setIsBurgerActive((prev) => !prev)}
-                        >
-                            Characters
-                        </NavLink>
-                    </li>
-                    <li className="app-header__navigation-link">
-                        <NavLink
-                            to="/episodes"
-                            className={setActiveClass}
-                            onClick={() => setIsBurgerActive((prev) => !prev)}
-                        >
-                            Episodes
-                        </NavLink>
-                    </li>
-                    <li className="app-header__navigation-link">
-                        <Link
-                            to="/"
-                            className="app-header__navigation-link__logo"
-                        >
-                            <img
-                                className="app-header__logo"
-                                src={rickAndMorty}
-                                alt="Rick and Morty"
-                            />
-                        </Link>
-                    </li>
-                    <li className="app-header__navigation-link">
-                        <NavLink
-                            to="/locations"
-                            className={setActiveClass}
-                            onClick={() => setIsBurgerActive((prev) => !prev)}
-                        >
-                            Locations
-                        </NavLink>
-                    </li>
+                    <ul className={`app-header__navigation ${isBurgerActive ? 'active' : ''}`}>
+                        <li className="app-header__navigation-link">
+                            <NavLink
+                                to="/"
+                                className={({isActive}) =>
+                                    pathname.startsWith('/characters') || isActive
+                                        ? 'app-header__navigation-link__active'
+                                        : 'app-header__navigation-link__primary'
+                                }
+                                onClick={() => setIsBurgerActive(prev => !prev)}>
+                                Characters
+                            </NavLink>
+                        </li>
+                        <li className="app-header__navigation-link">
+                            <NavLink
+                                to="/episodes"
+                                className={setActiveClass}
+                                onClick={() => setIsBurgerActive(prev => !prev)}>
+                                Episodes
+                            </NavLink>
+                        </li>
+                        <li className="app-header__navigation-link">
+                            <Link to="/" className="app-header__navigation-link__logo">
+                                <img className="app-header__logo" src={rickAndMorty} alt="Rick and Morty" />
+                            </Link>
+                        </li>
+                        <li className="app-header__navigation-link">
+                            <NavLink
+                                to="/locations"
+                                className={setActiveClass}
+                                onClick={() => setIsBurgerActive(prev => !prev)}>
+                                Locations
+                            </NavLink>
+                        </li>
 
-                    <li className="app-header__navigation-link">
-                        <NavLink
-                            to="https://rickandmortyapi.com/"
-                            target={"_blank"}
-                            className={setActiveClass}
-                            onClick={() => setIsBurgerActive((prev) => !prev)}
-                        >
-                            API
-                        </NavLink>
-                    </li>
-                </ul>
-                {/* </nav> */}
+                        <li className="app-header__navigation-link">
+                            <NavLink
+                                to="https://rickandmortyapi.com/"
+                                target={'_blank'}
+                                className={setActiveClass}
+                                onClick={() => setIsBurgerActive(prev => !prev)}>
+                                API
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
 
                 <div
-                    className={`menu-btn ${isBurgerActive ? "active" : ""}`}
-                    onClick={() => setIsBurgerActive((prev) => !prev)}
-                >
+                    className={`menu-btn ${isBurgerActive ? 'active' : ''}`}
+                    onClick={() => setIsBurgerActive(prev => !prev)}>
                     <span></span>
                 </div>
             </div>
