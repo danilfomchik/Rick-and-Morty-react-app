@@ -10,7 +10,7 @@ const CharactersList = ({data, loading, error}) => {
         <>
             <div className="characters-list">
                 {loading && <Spinner />}
-                {error && (
+                {!loading && error && (
                     <div className="error-component">
                         <ErrorMessage />
 

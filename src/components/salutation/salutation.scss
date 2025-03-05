@@ -1,68 +1,67 @@
 @import '../../style/variables.scss';
 
-.salutation{
+.salutation {
     display: flex;
     color: $text-color;
     flex-direction: row;
     justify-content: center;
     align-items: stretch;
     padding: 20px 0px 70px;
-  
-    &-content{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      text-align: left;
-      flex-basis: 50%;
-  
-      padding: 0px 0px 0px 50px;
-  
-      h1 {
-        color: #6c6e6c;
-        font-size: 50px;
-      }
-  
-      p{
-        font-size: 18px;
-        border-left: 3px solid $text-color;
-        padding: 0px 0px 0px 15px;
-        margin: 25px 0px 0px;
-      }
-    }
-  
-    &-image{
-      flex-basis: 50%;
 
-      .rick-and-morty__main-image{
-        width: 100%;
-        margin: 0 auto;
-      }
+    &-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: left;
+        flex-basis: 50%;
+
+        padding: 0px 0px 0px 50px;
+
+        h1 {
+            color: #6c6e6c;
+            font-size: 50px;
+        }
+
+        p {
+            font-size: 18px;
+            border-left: 3px solid $text-color;
+            padding: 0px 0px 0px 15px;
+            margin: 25px 0px 0px;
+        }
+    }
+
+    &-image {
+        flex-basis: 50%;
+
+        .rick-and-morty__main-image {
+            width: 100%;
+            margin: 0 auto;
+        }
     }
 }
 
-@media (max-width: 1240px)  {
-  .salutation{
-  
-    &-content{
-      padding: 0px 0px 0px 0px;
+@media (max-width: 1240px) {
+    .salutation {
+        &-content {
+            padding: 0px 0px 0px 0px;
+        }
     }
-  }
 }
 
-@media (max-width: 990px) {}
+@media (max-width: 990px) {
+}
 
 @media (max-width: 768px) {
-  .salutation{
-  
-    &-content{
-      h1{
-        font-size: 35px;
-      }
+    .salutation {
+        &-content {
+            h1 {
+                font-size: 35px;
+            }
 
-      p{
-        font-size: 14px;
-      }
+            p {
+                font-size: 14px;
+            }
+        }
     }
-  }
 }

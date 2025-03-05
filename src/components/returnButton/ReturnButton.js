@@ -1,11 +1,10 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import arrow from "../../resources/left-arrow.png";
+import arrow from '../../resources/left-arrow.png';
+import './return-btn.scss';
 
-import "./return-btn.scss";
-
-function ReturnButton({ title }) {
+function ReturnButton({title}) {
     const navigate = useNavigate();
 
     return (

@@ -1,17 +1,17 @@
 @import '../../../style/variables.scss';
 
-.single-character{
+.single-character {
     margin: 0 auto;
 
-    .characters-list__item{
+    .characters-list__item {
         margin: 0px 100px;
         height: auto;
 
         &-info {
             justify-content: center;
             padding: 20px 20px 0px;
-            
-            div{
+
+            div {
                 padding: 0px 0px 20px;
             }
         }
@@ -19,12 +19,12 @@
 }
 
 @media (max-width: 768px) {
-    .single-character{
-        .characters-list__item{
+    .single-character {
+        .characters-list__item {
             max-width: 85%;
             margin: 0px auto;
 
-            &-status{
+            &-status {
                 margin-bottom: 0px;
             }
         }
