@@ -66,8 +66,6 @@ function useData(getDataFunc, param) {
     const onCurrentCategoryChange = useCallback(({e, currentValue}) => {
         e.stopPropagation();
 
-        // console.log(error);
-
         setAccordion(prev => ({
             ...prev,
             currentValue,
