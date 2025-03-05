@@ -1,17 +1,14 @@
-import img from "./error.gif";
-import error from "./rick-and-morty-error.png";
-
-import error404 from "./404.png";
+import error404 from './404.png';
 
 const ErrorMessage = () => {
     return (
         <img
             src={error404}
             style={{
-                display: "block",
-                width: "50%",
-                objectFit: "contain",
-                margin: "0px auto 20px",
+                display: 'block',
+                width: '50%',
+                objectFit: 'contain',
+                margin: '0px auto 20px',
             }}
             alt="404 error"
         />

@@ -1,27 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, {useCallback, useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 
-import Page404 from "../errorPage/404";
-import Spinner from "../../spinner/Spinner";
-
-import ReturnButton from "../../returnButton/ReturnButton";
-
-import useApi from "../../../services/useApi";
-
-import "./single-character-page.scss";
+import useApi from '../../../services/useApi';
+import ReturnButton from '../../returnButton/ReturnButton';
+import Spinner from '../../spinner/Spinner';
+import Page404 from '../errorPage/404';
+import './single-character-page.scss';
 
 function SingleCharacterPage() {
-    const { charId } = useParams();
+    const {charId} = useParams();
     const [characterInfo, setCharacterInfo] = useState({});
 
-    const { error, loading, getSingleCharacter } = useApi();
+    const {error, loading, getSingleCharacter} = useApi();
+
+    const onLoadSingleCharacter = useCallback(async () => {
+        const responseData = await getSingleCharacter(charId);
+
+        setCharacterInfo(responseData);
+    }, [charId, getSingleCharacter]);
 
     useEffect(() => {
-        getSingleCharacter(charId).then(setCharacterInfo);
-    }, [charId]);
+        onLoadSingleCharacter();
+    }, [onLoadSingleCharacter]);
 
     const errorMessage = error && <Page404 />;
-
     const spinner = loading && <Spinner />;
     const content = !loading && !error && <View character={characterInfo} />;
 
@@ -34,14 +36,13 @@ function SingleCharacterPage() {
     );
 }
 
-const View = ({ character }) => {
-    const { name, thumbnail, status, species, gender, origin, location } =
-        character;
+const View = ({character}) => {
+    const {name, thumbnail, status, species, gender, origin, location} = character;
     const navigate = useNavigate();
 
     return (
         <>
-            <ReturnButton title={"Return Back"} redirect={() => navigate(-1)} />
+            <ReturnButton title={'Return Back'} redirect={() => navigate(-1)} />
 
             <div className="characters-list__item">
                 <div className="characters-list__item-avatar">
@@ -50,11 +51,7 @@ const View = ({ character }) => {
 
                 <div className="characters-list__item-info">
                     <h2>{name}</h2>
-                    <div
-                        className={`characters-list__item-status ${
-                            status ? status.toLowerCase() : ""
-                        }`}
-                    >
+                    <div className={`characters-list__item-status ${status ? status.toLowerCase() : ''}`}>
                         <span>
                             {status} - {species}
                         </span>

@@ -1,29 +1,29 @@
 @import '../../style/variables.scss';
 
-.footer{
+.footer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #202329; 
+    background-color: #202329;
     color: #ffffff;
     padding: 70px 0px;
     margin-top: 30px;
 
-    &__api-info{
+    &__api-info {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        gap: 30px;
 
         font-size: 15px;
 
-        &__count{
+        &__count {
             cursor: default;
-            margin: 0px 15px;
 
-            &:hover{
-                span{
+            &:hover {
+                span {
                     transition: all 150ms ease-in;
                     color: $hover-color;
                 }
@@ -31,26 +31,26 @@
         }
     }
 
-    &__logotypes{
-        img{
+    &__logotypes {
+        img {
             width: 200px;
         }
     }
 
-    &__social-medias{
+    &__social-medias {
         display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		align-items: center;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         padding: 20px 0px 0px;
 
-        &__list{
+        &__list {
             display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			align-items: center;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
 
-            li{
+            li {
                 padding: 0px 10px;
 
                 a > i {
@@ -67,20 +67,23 @@
         }
     }
 
-    &__developed-by{
+    &__developed-by {
         padding: 20px 0px 0px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
 
-        .developer-name{
+        .developer-name {
             color: #ffffff;
             font-size: 18px;
             text-decoration: none;
 
-            span{
+            span {
                 padding: 0px 2px 2px;
                 border-bottom: 2px solid $hover-color;
                 transition: all 150ms ease-in;
 
-                &:hover{
+                &:hover {
                     color: $hover-color;
                 }
             }

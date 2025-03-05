@@ -1,22 +1,23 @@
-.accordion-container{
-    color: #2f362f;
+@import '../../style/variables.scss';
+
+.accordion-container {
+    color: $text-color;
     padding: 15px 50px;
-    margin: 15px;
-    border: 2px solid #61de2a;
+    margin: 15px 0px;
+    border: 2px solid $hover-color;
     border-radius: 15px;
-    box-shadow: 0px 0px 6px 1px #61de2a;
+    box-shadow: 0px 0px 6px 1px $hover-color;
     background-color: rgba(255, 255, 255);
-    // -webkit-backdrop-filter: blur(4px);
-    // backdrop-filter: blur(4px);
     flex: 1 1 400px;
     cursor: pointer;
 
-    &.episodes__accordion, &.locations__accordion{
+    &.episodes__accordion,
+    &.locations__accordion {
         max-width: 700px;
         margin: 10px auto 50px;
     }
 
-    &__title{
+    &__title {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -24,7 +25,7 @@
         font-size: 20px;
         transition: all 0.4s ease;
 
-        .arrow{
+        .arrow {
             width: 20px;
             height: 20px;
             margin: 0px 0px 0px 20px;
@@ -32,46 +33,46 @@
         }
     }
 
-    &__content{
+    &__content {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch;
         opacity: 0;
         max-height: 0;
-        overflow-y: auto;        
+        overflow-y: auto;
         transition: all 0.4s ease-out;
     }
 
-    &.open{
-        .accordion-container__title{
-            .arrow{
-               transform: rotate(180deg);
+    &.open {
+        .accordion-container__title {
+            .arrow {
+                transform: rotate(180deg);
             }
         }
-    
-        .accordion-container__content{
+
+        .accordion-container__content {
             opacity: 1;
             max-height: 300px;
         }
     }
 }
 
-.filter-button{
+.filter-button {
     background: #ffffff;
-    color: #2f362f;
-    border: 1px solid #2f362f;
+    color: $text-color;
+    border: 1px solid $text-color;
     padding: 6px;
     margin: 5px 0px;
     border-radius: 5px;
 
-    &:hover{
-        background: #2f362f;
+    &:hover {
+        background: $text-color;
         color: #ffffff;
     }
 
-    &.active{
-        background: #2f362f;
+    &.active {
+        background: $text-color;
         color: #ffffff;
     }
 }

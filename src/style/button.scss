@@ -1,11 +1,13 @@
-.button{
+@import '../style/variables.scss';
+
+.button {
     flex-basis: 100%;
 
-    &:disabled{
-        color: #2f362f;;
+    &:disabled {
+        color: $text-color;
         cursor: auto;
         background-color: #ffffff;
         box-shadow: none;
-        border: 3px solid #2f362f;
+        border: 3px solid $text-color;
     }
 }

@@ -1,9 +1,7 @@
 @import '../../style/variables.scss';
 @import '../../style/keyframes.scss';
 
-.app-header{
-    // color: #ffffff;
-
+.app-header {
     &__container {
         display: flex;
         align-items: stretch;
@@ -13,32 +11,32 @@
         width: 100%;
         padding: 10px 50px;
         margin-bottom: 50px;
-
-        & > .app-header__navigation-link__logo{
-            display: none;
-        }
     }
 
-    &__logo{
+    &__mobile-logo {
+        display: none;
+    }
+
+    &__logo {
         width: 35vmin;
     }
 
-    &__navigation{
+    &__navigation {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
 
-        &-link{
+        &-link {
             flex: 1;
             color: $text-color;
 
-            & > &__logo{
+            & > &__logo {
                 padding: 0;
             }
 
-            a{
+            a {
                 color: #ffffff;
                 font-size: 20px;
                 text-decoration: none;
@@ -46,82 +44,82 @@
                 padding: 8px 20px;
             }
 
-            &:nth-child(3){
+            &:nth-child(3) {
                 padding: 0px 30px;
             }
         }
     }
 }
 
-a.app-header__navigation-link__primary{
-    &:hover{
+a.app-header__navigation-link__primary {
+    &:hover {
         background-color: transparent;
         border: 3px solid #ffffff;
         color: #ffffff;
     }
 }
 
-a.app-header__navigation-link__active{
+a.app-header__navigation-link__active {
     color: #202329;
     background-color: #ffffff;
     border: 3px solid #ffffff;
-    
-    &:hover{
+
+    &:hover {
         color: #202329;
     }
 }
 
 .menu-btn {
-	display: none;
+    display: none;
     align-self: flex-end;
-	width: 50px;
-	height: 50px;
-	background: #2f362f;
-	-webkit-backdrop-filter: blur(3px);
-	backdrop-filter: blur(3px);
-	border-radius: 50%;
-	position: relative;
+    width: 50px;
+    height: 50px;
+    background: $text-color;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    border-radius: 50%;
+    position: relative;
 
-	span {
-		position: absolute;
-		top: 50%;
-		margin-top: -1px;
-		left: 50%;
-		margin-left: -10px;
-		width: 20px;
-		height: 2px;
-		background: #ffffff;
-		transition: background 0.8s ease;
+    span {
+        position: absolute;
+        top: 50%;
+        margin-top: -1px;
+        left: 50%;
+        margin-left: -10px;
+        width: 20px;
+        height: 2px;
+        background: #ffffff;
+        transition: background 0.8s ease;
         animation: closedMid 0.8s backwards;
         animation-direction: reverse;
 
-		&::before {
-			content: "";
-			display: block;
-			transition: 0.2s;
-			position: absolute;
-			height: 100%;
-			width: 100%;
-			background: #ffffff;
-			transform: translateY(-5px);
+        &::before {
+            content: '';
+            display: block;
+            transition: 0.2s;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: #ffffff;
+            transform: translateY(-5px);
             animation: closedTop 0.8s backwards;
             animation-direction: reverse;
-		}
-		&::after {
-			content: "";
-			display: block;
-			transition: 0.2s;
-			position: absolute;
-			height: 100%;
-			width: 100%;
-			background: #ffffff;
-			transform: translateY(5px);
+        }
+        &::after {
+            content: '';
+            display: block;
+            transition: 0.2s;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: #ffffff;
+            transform: translateY(5px);
             animation: closedBtm 0.8s backwards;
             animation-direction: reverse;
-		}
-	}
+        }
+    }
 
-    &.active{
+    &.active {
         span {
             animation: openMid 0.8s forwards;
 
@@ -135,27 +133,25 @@ a.app-header__navigation-link__active{
     }
 }
 
-
 @media (max-width: 990px) {
-    .app-header{
-
-        &__container{
+    .app-header {
+        &__container {
             width: 100%;
             background: #202329;
-    
+
             display: flex;
             padding: 10px 50px 10px;
             margin-bottom: 50px;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-
-            & > .app-header__navigation-link__logo{
-                display: block;
-            }
         }
 
-        &__navigation{
+        &__mobile-logo {
+            display: block;
+        }
+
+        &__navigation {
             position: absolute;
             top: 0;
             left: 0;
@@ -169,26 +165,29 @@ a.app-header__navigation-link__active{
             width: 100vw;
             height: 100vh;
             background: #202329;
-            transition: visibility 0.8s 0.5s, opacity 0.8s 0.5s, clip-path 0.4s 0.2s;
+            transition:
+                visibility 0.8s 0.5s,
+                opacity 0.8s 0.5s,
+                clip-path 0.4s 0.2s;
             clip-path: circle(200px at top right);
-    
-            &-link:has( > &-link__logo){
+
+            &-link:has(> &-link__logo) {
                 display: none;
             }
-    
-            &-link{
+
+            &-link {
                 opacity: 0;
                 transform: translateX(100%);
                 flex: none;
-    
-                a{
+
+                a {
                     font-size: 30px;
-                    color: #2f362f;
+                    color: $text-color;
                 }
             }
         }
 
-        &__navigation.active{
+        &__navigation.active {
             display: flex;
             opacity: 1;
             visibility: visible;
@@ -196,10 +195,12 @@ a.app-header__navigation-link__active{
             animation: pulse 1s;
             clip-path: circle(100% at center);
 
-            .app-header__navigation-link{
+            .app-header__navigation-link {
                 opacity: 1;
                 transform: translateX(0);
-                transition: opacity 0.4s ease-in-out, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transition:
+                    opacity 0.4s ease-in-out,
+                    transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
                 &:nth-of-type(1) {
                     transition-delay: 0.6s;
@@ -217,30 +218,30 @@ a.app-header__navigation-link__active{
                     transition-delay: 1s;
                 }
 
-                &__primary{
+                &__primary {
                     color: #ffffff;
 
-                    &:hover{
+                    &:hover {
                         background-color: transparent;
                         border: 3px solid $text-color;
                     }
                 }
-                
-                &__active{
+
+                &__active {
                     color: $text-color;
                     background-color: #ffffff;
-                    
-                    &:hover{
+
+                    &:hover {
                         color: $text-color;
                         background-color: #ffffff;
                     }
                 }
             }
         }
-    }    
+    }
 
-    .app-header__navigation:has(.active){
-        .characters-list__item{
+    .app-header__navigation:has(.active) {
+        .characters-list__item {
             z-index: -1;
         }
     }
@@ -267,10 +268,10 @@ a.app-header__navigation-link__active{
 }
 
 @media (max-width: 768px) {
-    .app-header{
-        &__navigation{
-            &-link{
-                a{
+    .app-header {
+        &__navigation {
+            &-link {
+                a {
                     font-size: 20px;
                 }
             }

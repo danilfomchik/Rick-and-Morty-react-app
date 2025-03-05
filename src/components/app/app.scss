@@ -1,23 +1,21 @@
 @import '../../style/variables.scss';
 
 .app {
-  height: 100vh;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: url($background-img);
-  color: #ffffff;
-  overflow: auto;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: url($background-img);
+    color: #ffffff;
+    overflow: auto;
 }
 
-// .main-container{
-  .page-title{
+.page-title {
     color: #6c6e6c;
     padding: 0px 0px 40px;
-  }
+}
 
-  .page-title__2{
+.page-title__2 {
     color: $text-color;
-  }
-// }
+}

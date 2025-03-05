@@ -1,11 +1,9 @@
-import { useState, useRef } from "react";
+import {useRef} from 'react';
 
-const useFilter = (initialValue) => {
+const useFilter = initialValue => {
     const currentValue = useRef(initialValue);
 
-    const onCategoryCheck = (newCategory) => {
-        console.log(currentValue.current, newCategory);
-
+    const onCategoryCheck = newCategory => {
         if (currentValue.current === newCategory) {
             currentValue.current = initialValue;
         } else {

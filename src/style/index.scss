@@ -2,23 +2,22 @@
 @import './reset.scss';
 @import './button.scss';
 
-
 body {
-  margin: 0;
-  font-family: $main-font;
+    margin: 0;
+    font-family: $main-font;
 }
 
-.app{
-  color: $text-color;
+.app {
+    color: $text-color;
 
-  ::selection {
-    color: #61de2a;
-    background: rgb(32, 35, 41);
-  }
+    ::selection {
+        color: $hover-color;
+        background: rgb(32, 35, 41);
+    }
 }
 
 :root {
     @media (prefers-reduced-motion: no-preference) {
-      scroll-behavior: auto;
+        scroll-behavior: auto;
     }
 }

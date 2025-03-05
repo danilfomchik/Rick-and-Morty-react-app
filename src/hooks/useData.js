@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react";
+import {useCallback, useEffect, useState} from 'react';
 
-import useApi from "../services/useApi";
+import useApi from '../services/useApi';
 
 function useData(getDataFunc, param) {
     const [data, setData] = useState([]);
     const [dataInfo, setDataInfo] = useState({});
-    const [dataCount, setDataCount] = useState(0);
 
-    const { getDataCount, clearError } = useApi();
+    const {getDataCount, clearError} = useApi();
 
     const [accordion, setAccordion] = useState({
         id: 0,
-        title: "",
+        title: '',
         categories: [],
         currentValue: 1,
         open: false,
@@ -19,27 +18,33 @@ function useData(getDataFunc, param) {
 
     const [currentData, setCurrentData] = useState(1);
 
-    useEffect(() => {
-        getDataCount(param).then((count) => {
-            // getDataCount("episode").then((count) => {
-            setDataCount(count);
-            setAccordion((prev) => ({
-                ...prev,
-                categories: setLocationAccordion(count),
-            }));
-        });
-    }, []);
+    const onGetDataCount = useCallback(async () => {
+        const responseData = await getDataCount(param);
 
-    useEffect(() => {
+        setAccordion(prev => ({
+            ...prev,
+            categories: setLocationAccordion(responseData),
+        }));
+    }, [getDataCount, param]);
+
+    const onGetData = useCallback(async () => {
         clearError();
 
-        getDataFunc(currentData).then((data) => {
-            setDataInfo(data.info);
-            setData(data.result);
-        });
-    }, [currentData]);
+        const responseData = await getDataFunc(currentData);
 
-    const setLocationAccordion = (amount) => {
+        setDataInfo(responseData.info);
+        setData(responseData.result);
+    }, [clearError, currentData, getDataFunc]);
+
+    useEffect(() => {
+        onGetDataCount();
+    }, [onGetDataCount]);
+
+    useEffect(() => {
+        onGetData();
+    }, [onGetData]);
+
+    const setLocationAccordion = amount => {
         let result = [];
 
         for (let i = 1; i <= amount; i++) {
@@ -49,34 +54,34 @@ function useData(getDataFunc, param) {
         return result;
     };
 
-    const toggleAccordion = (e) => {
-        if (!e.target.classList.contains("accordion-container__content")) {
-            setAccordion((prev) => ({
+    const toggleAccordion = e => {
+        if (!e.target.classList.contains('accordion-container__content')) {
+            setAccordion(prev => ({
                 ...prev,
                 open: !prev.open,
             }));
         }
     };
 
-    const onCurrentCategoryChange = ({ e, accordiontId, currentValue }) => {
+    const onCurrentCategoryChange = useCallback(({e, currentValue}) => {
         e.stopPropagation();
 
-        setAccordion((prev) => ({
+        setAccordion(prev => ({
             ...prev,
             currentValue,
         }));
 
         setCurrentData(currentValue);
-    };
+    }, []);
 
-    const onCharacterCLick = () => {
-        setAccordion((prev) => ({
+    const onCharacterCLick = useCallback(() => {
+        setAccordion(prev => ({
             ...prev,
             currentValue: 1,
         }));
 
         setCurrentData(1);
-    };
+    }, []);
 
     return {
         toggleAccordion,

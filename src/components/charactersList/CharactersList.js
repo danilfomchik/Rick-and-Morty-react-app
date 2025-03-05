@@ -1,50 +1,33 @@
-import { useCallback } from "react";
+import {memo} from 'react';
 
-import CharactersItem from "../charactersItem/CharactersItem";
-import Spinner from "../spinner/Spinner";
-import ErrorMessage from "../errorMessage/ErrorMessage";
+import CharactersItem from '../charactersItem/CharactersItem';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import Spinner from '../spinner/Spinner';
+import './characters-list.scss';
 
-import "./characters-list.scss";
-
-const CharactersList = ({ data, loading, error, page, onCharacterCLick }) => {
-    const renderCharacters = useCallback(
-        (characters) => {
-            return characters.map((char) => (
-                <CharactersItem
-                    char={char}
-                    key={char.id}
-                    page={page}
-                    onCharacterCLick={onCharacterCLick}
-                />
-            ));
-        },
-        [data]
-    );
-
-    const charCards = renderCharacters(data);
-
-    const content = !loading && !error && charCards;
-    const spinner = loading && <Spinner />;
-    const errorMessage = error && <ErrorComponent />;
-
+const CharactersList = ({data, loading, error}) => {
     return (
         <>
             <div className="characters-list">
-                {errorMessage}
-                {spinner}
-                {content}
+                {loading && <Spinner />}
+                {error && (
+                    <div className="error-component">
+                        <ErrorMessage />
+
+                        <h2>Something went wrong...</h2>
+                    </div>
+                )}
+
+                {!loading && !error && data.length === 0 && (
+                    <div className="error-component">
+                        <h2>No items to display...</h2>
+                    </div>
+                )}
+
+                {!loading && !error && data.map(char => <CharactersItem char={char} key={char.id} />)}
             </div>
         </>
     );
 };
 
-const ErrorComponent = () => {
-    return (
-        <div className="error-component">
-            <ErrorMessage />
-            <h2>Something went wrong...</h2>
-        </div>
-    );
-};
-
-export default CharactersList;
+export default memo(CharactersList);
