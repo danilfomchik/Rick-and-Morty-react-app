@@ -1,17 +1,13 @@
-import useFilter from '../../hooks/useFilter';
 import arrow from '../../resources/down-arrow-2.png';
 import './accordion.scss';
 
-const Accordion = ({customClass, id, initialValue = '', accordion, toggleAccordion, onCurrentCategoryChange}) => {
-    const {currentValue, onCategoryCheck} = useFilter(initialValue);
-
-    const onCategoryClick = (e, category) => {
-        onCategoryCheck(category);
+const Accordion = ({customClass, id, accordion, toggleAccordion, onCurrentCategoryChange}) => {
+    const onOptionClick = (e, newValue) => {
         toggleAccordion(e, id);
         onCurrentCategoryChange({
             e,
-            accordiontId: accordion.id,
-            currentValue: currentValue.current,
+            accordionId: accordion.id,
+            currentValue: newValue,
         });
     };
 
@@ -25,17 +21,23 @@ const Accordion = ({customClass, id, initialValue = '', accordion, toggleAccordi
                 <img src={arrow} className="arrow" alt="Arrow" />
             </div>
             <div className="accordion-container__content">
-                {accordion.categories.map((category, i) => (
-                    <button
-                        className={`button filter-button${accordion.currentValue === category ? ' active' : ''}`}
-                        onClick={e => {
-                            onCategoryClick(e, category);
-                        }}
-                        data-value={category}
-                        key={i}>
-                        {category}
-                    </button>
-                ))}
+                {accordion.options.length > 0 ? (
+                    accordion.options.map((option, i) => (
+                        <button
+                            className={`button filter-button${accordion.currentValue === option ? ' active' : ''}`}
+                            onClick={e => {
+                                onOptionClick(e, option);
+                            }}
+                            data-value={option}
+                            key={i}>
+                            {option}
+                        </button>
+                    ))
+                ) : (
+                    <div className="error-component">
+                        <h4>No options loaded</h4>
+                    </div>
+                )}
             </div>
         </div>
     );

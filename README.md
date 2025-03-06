@@ -13,6 +13,7 @@ Live demo: [Demo](https://rick-and-morty-react-app-ruby.vercel.app/).
 
 - **React** – UI library
 - **React Router** – For navigation
+- **GraphQL (Apollo Client)** - For optimized data fetching
 - **Rick and Morty API** – To fetch Rick and Morty data
 - **CSS Modules / SCSS** – Styling
 

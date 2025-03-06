@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import {useQuery} from '@apollo/client';
 import {useNavigate, useParams} from 'react-router-dom';
 
-import useApi from '../../../services/useApi';
+import {CHARACTER_INFO} from '../../../apollo/queries/characters';
 import ReturnButton from '../../returnButton/ReturnButton';
 import Spinner from '../../spinner/Spinner';
 import Page404 from '../errorPage/404';
@@ -9,23 +9,15 @@ import './single-character-page.scss';
 
 function SingleCharacterPage() {
     const {charId} = useParams();
-    const [characterInfo, setCharacterInfo] = useState({});
-
-    const {error, loading, getSingleCharacter} = useApi();
-
-    const onLoadSingleCharacter = useCallback(async () => {
-        const responseData = await getSingleCharacter(charId);
-
-        setCharacterInfo(responseData);
-    }, [charId, getSingleCharacter]);
-
-    useEffect(() => {
-        onLoadSingleCharacter();
-    }, [onLoadSingleCharacter]);
+    const {loading, error, data} = useQuery(CHARACTER_INFO, {
+        variables: {
+            id: charId,
+        },
+    });
 
     const errorMessage = error && <Page404 />;
     const spinner = loading && <Spinner />;
-    const content = !loading && !error && <View character={characterInfo} />;
+    const content = !loading && !error && <View character={data.character} />;
 
     return (
         <div className="single-character">
@@ -62,11 +54,11 @@ const View = ({character}) => {
                     </div>
                     <div className="characters-list__item-location">
                         <p>Origin:</p>
-                        <span>{origin}</span>
+                        <span>{origin.name}</span>
                     </div>
                     <div className="characters-list__item-location">
                         <p>Last known location:</p>
-                        <span>{location}</span>
+                        <span>{location.name}</span>
                     </div>
                 </div>
             </div>

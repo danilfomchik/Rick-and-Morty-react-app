@@ -1,9 +1,9 @@
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {useQuery} from '@apollo/client';
+import {useMemo, useRef, useState} from 'react';
 import {Outlet, useOutlet} from 'react-router-dom';
 
-import {generateQueries} from '../../../helpers/utils';
+import {ALL_CHARACTERS} from '../../../apollo/queries/characters';
 import {useCurrentPage} from '../../../hooks/useCurrentPage';
-import useApi from '../../../services/useApi';
 import CharactersList from '../../charactersList/CharactersList';
 import ErrorBoundery from '../../errorBoundary/ErrorBoundery';
 import FilterPanel from '../../filterPanel/FilterPanel';
@@ -13,19 +13,18 @@ import './characters-page.scss';
 
 export const CharactersPage = () => {
     const [query, setQuery] = useState('');
-    const [data, setData] = useState([]);
     const [accordions, setAccordions] = useState([
         {
             id: 0,
             title: 'Status',
-            categories: ['alive', 'dead', 'unknown'],
+            options: ['alive', 'dead', 'unknown'],
             currentValue: '',
             open: false,
         },
         {
             id: 1,
             title: 'Species',
-            categories: [
+            options: [
                 'Human',
                 'Alien',
                 'Humanoid',
@@ -44,7 +43,7 @@ export const CharactersPage = () => {
         {
             id: 2,
             title: 'Gender',
-            categories: ['female', 'male', 'genderless', 'unknown'],
+            options: ['female', 'male', 'genderless', 'unknown'],
             currentValue: '',
             open: false,
         },
@@ -52,73 +51,29 @@ export const CharactersPage = () => {
 
     const outlet = useOutlet();
     const searchRef = useRef(null);
-    const {loading, error, getCharacters, clearError} = useApi();
     const currentPageControls = useCurrentPage();
 
-    const {
-        resetCurrentPage,
-        setAllPagesCount,
-        currentPage,
-        allPagesCount,
-        increaseCurrentPage,
-        decreaseCurrentPage,
-        setNewPage,
-    } = currentPageControls;
+    const {resetCurrentPage, currentPage, increaseCurrentPage, decreaseCurrentPage, setNewPage} = currentPageControls;
 
     const filterQueries = useMemo(() => {
-        const queriesArray = accordions.map(accordion => {
-            return {
-                name: accordion.title,
-                value: accordion.currentValue,
-            };
+        const queries = {};
+
+        accordions.forEach(accordion => {
+            queries[accordion.title.toLowerCase()] = accordion.currentValue;
         });
 
-        return generateQueries(queriesArray);
+        return queries;
     }, [accordions]);
 
-    const onCharactersLoaded = useCallback(
-        data => {
-            setData(data.result);
-            setAllPagesCount(data.pages);
+    const {loading, error, data} = useQuery(ALL_CHARACTERS, {
+        variables: {
+            filter: {
+                name: query,
+                ...filterQueries,
+            },
+            page: currentPage,
         },
-        [setAllPagesCount],
-    );
-
-    const onCharactersLoading = useCallback(
-        async controller => {
-            if (controller.signal.aborted) return;
-
-            try {
-                const data = await getCharacters(
-                    {
-                        query,
-                        currentPage,
-                        filterQueries,
-                    },
-                    {
-                        signal: controller.signal,
-                    },
-                );
-
-                if (!controller.signal.aborted) {
-                    onCharactersLoaded(data);
-                }
-            } catch (e) {
-                if (e.name === 'AbortError') return;
-            }
-        },
-        [currentPage, filterQueries, getCharacters, onCharactersLoaded, query],
-    );
-
-    useEffect(() => {
-        clearError();
-
-        const controller = new AbortController();
-
-        onCharactersLoading(controller);
-
-        return () => controller.abort();
-    }, [clearError, onCharactersLoading]);
+    });
 
     return (
         <>
@@ -144,13 +99,13 @@ export const CharactersPage = () => {
                     </div>
 
                     <ErrorBoundery>
-                        <CharactersList data={data} error={error} loading={loading} />
+                        <CharactersList data={data?.characters.results} error={error} loading={loading} />
                     </ErrorBoundery>
 
-                    {!error && allPagesCount > 1 && (
+                    {!error && data?.characters.info.pages > 1 && (
                         <PagesBlock
                             searchRef={searchRef}
-                            allPagesCount={allPagesCount}
+                            allPagesCount={data?.characters.info.pages}
                             currentPage={currentPage}
                             increaseCurrentPage={increaseCurrentPage}
                             decreaseCurrentPage={decreaseCurrentPage}

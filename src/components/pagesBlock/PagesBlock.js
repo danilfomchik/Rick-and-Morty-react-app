@@ -1,6 +1,7 @@
 import {memo} from 'react';
 
 import {getPageIntersection} from '../../helpers/getPageIntersection';
+import {getArrayFromValue} from '../../helpers/utils';
 import './pages-block.scss';
 
 const PagesBlock = ({allPagesCount, currentPage, increaseCurrentPage, decreaseCurrentPage, setNewPage, searchRef}) => {
@@ -11,28 +12,20 @@ const PagesBlock = ({allPagesCount, currentPage, increaseCurrentPage, decreaseCu
         });
     };
 
-    const renderPages = pagesCount => {
-        let pages = [];
+    const renderPages = () => {
+        const arrayFromLocationsCount = getArrayFromValue(allPagesCount);
 
-        for (let page = 0; page < pagesCount; page++) {
-            let currPage = page + 1;
-
-            pages.push(
-                <div
-                    key={currPage}
-                    onClick={() => {
-                        onPageChange();
-                        setNewPage(currPage);
-                    }}
-                    className={
-                        currPage === currentPage ? 'characters-list__pages-page active' : 'characters-list__pages-page'
-                    }>
-                    <p>{currPage}</p>
-                </div>,
-            );
-        }
-
-        return pages;
+        return arrayFromLocationsCount.map(page => (
+            <div
+                key={page}
+                onClick={() => {
+                    onPageChange();
+                    setNewPage(page);
+                }}
+                className={page === currentPage ? 'characters-list__pages-page active' : 'characters-list__pages-page'}>
+                <p>{page}</p>
+            </div>
+        ));
     };
 
     const pagesBlocks = getPageIntersection(renderPages(allPagesCount), currentPage);

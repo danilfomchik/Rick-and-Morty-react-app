@@ -26,16 +26,16 @@ const FilterPanel = ({resetCurrentPage, accordions, setAccordions}) => {
     );
 
     const onCurrentCategoryChange = useCallback(
-        ({e, accordiontId, currentValue}) => {
+        ({e, accordionId, currentValue}) => {
             e.stopPropagation();
             resetCurrentPage();
 
             setAccordions(prev =>
                 prev.map(accordion => {
-                    if (accordion.id === accordiontId) {
+                    if (accordion.id === accordionId) {
                         return {
                             ...accordion,
-                            currentValue,
+                            currentValue: currentValue === accordion.currentValue ? '' : currentValue,
                         };
                     } else {
                         return accordion;

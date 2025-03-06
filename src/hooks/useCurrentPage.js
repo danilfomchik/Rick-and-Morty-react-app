@@ -9,11 +9,11 @@ export const useCurrentPage = () => {
     }, []);
 
     const increaseCurrentPage = useCallback(() => {
-        setCurrentPage(page => (page < allPagesCount ? page + 1 : allPagesCount));
-    }, [allPagesCount]);
+        setCurrentPage(page => ++page);
+    }, []);
 
     const decreaseCurrentPage = useCallback(() => {
-        setCurrentPage(page => (page > 1 ? page - 1 : 1));
+        setCurrentPage(page => --page);
     }, []);
 
     const resetCurrentPage = useCallback(() => {
