@@ -63,6 +63,7 @@ a.app-header__navigation-link__active {
     color: #202329;
     background-color: #ffffff;
     border: 3px solid #ffffff;
+    pointer-events: none;
 
     &:hover {
         color: #202329;

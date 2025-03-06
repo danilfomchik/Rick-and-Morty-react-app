@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 20px;
     background-color: #202329;
     color: #ffffff;
     padding: 70px 0px;
@@ -42,7 +43,7 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        padding: 20px 0px 0px;
+        // padding: 20px 0px 0px;
 
         &__list {
             display: flex;
@@ -68,7 +69,7 @@
     }
 
     &__developed-by {
-        padding: 20px 0px 0px;
+        // padding: 20px 0px 0px;
         display: flex;
         align-items: center;
         gap: 5px;

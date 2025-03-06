@@ -1,54 +1,24 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import {useQuery} from '@apollo/client';
+import React, {memo} from 'react';
 
-import useApi from '../../services/useApi';
+import {DATA_STATISTICS} from '../../apollo/queries/dataStatistics';
 import './footer.scss';
 
 const Footer = memo(() => {
-    const [data, setData] = useState([
-        {
-            name: 'characters',
-            value: 0,
-        },
-        {
-            name: 'episodes',
-            value: 0,
-        },
-        {
-            name: 'locations',
-            value: 0,
-        },
-    ]);
-
-    const {getDataCount} = useApi();
-
-    const getInitialData = useCallback(async () => {
-        const responseData = await Promise.allSettled([
-            getDataCount('character'),
-            getDataCount('episode'),
-            getDataCount('location'),
-        ]);
-
-        setData(prevData =>
-            prevData.map((item, index) => ({
-                ...item,
-                value: responseData[index].status === 'fulfilled' ? responseData[index].value : item.value,
-            })),
-        );
-    }, [getDataCount]);
-
-    useEffect(() => {
-        getInitialData();
-    }, [getInitialData]);
+    const {data} = useQuery(DATA_STATISTICS);
 
     return (
         <div className="footer">
-            <div className="footer__api-info">
-                {data.map(item => (
-                    <div className="footer__api-info__count" key={item.name}>
-                        {item.name.toUpperCase()}: <span>{item.value}</span>
-                    </div>
-                ))}
-            </div>
+            {data && (
+                <div className="footer__api-info">
+                    {Object.keys(data).map(item => (
+                        <div className="footer__api-info__count" key={item}>
+                            {item.toUpperCase()}: <span>{data[item].info.count}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
+
             <div className="footer__social-medias">
                 <ul className="footer__social-medias__list">
                     <li className="social-list_li">

@@ -12,6 +12,15 @@ const AppHeader = () => {
 
     const {pathname} = useLocation();
 
+    const toggleBurger = () => {
+        setIsBurgerActive(prev => !prev);
+    };
+
+    const onNavItemClick = () => {
+        toggleBurger();
+        window.sessionStorage.clear();
+    };
+
     return (
         <header className="app-header">
             <div className="app-header__container">
@@ -29,15 +38,12 @@ const AppHeader = () => {
                                         ? 'app-header__navigation-link__active'
                                         : 'app-header__navigation-link__primary'
                                 }
-                                onClick={() => setIsBurgerActive(prev => !prev)}>
+                                onClick={onNavItemClick}>
                                 Characters
                             </NavLink>
                         </li>
                         <li className="app-header__navigation-link">
-                            <NavLink
-                                to="/episodes"
-                                className={setActiveClass}
-                                onClick={() => setIsBurgerActive(prev => !prev)}>
+                            <NavLink to="/episodes" className={setActiveClass} onClick={onNavItemClick}>
                                 Episodes
                             </NavLink>
                         </li>
@@ -47,10 +53,7 @@ const AppHeader = () => {
                             </Link>
                         </li>
                         <li className="app-header__navigation-link">
-                            <NavLink
-                                to="/locations"
-                                className={setActiveClass}
-                                onClick={() => setIsBurgerActive(prev => !prev)}>
+                            <NavLink to="/locations" className={setActiveClass} onClick={onNavItemClick}>
                                 Locations
                             </NavLink>
                         </li>
@@ -60,16 +63,14 @@ const AppHeader = () => {
                                 to="https://rickandmortyapi.com/"
                                 target={'_blank'}
                                 className={setActiveClass}
-                                onClick={() => setIsBurgerActive(prev => !prev)}>
+                                onClick={onNavItemClick}>
                                 API
                             </NavLink>
                         </li>
                     </ul>
                 </nav>
 
-                <div
-                    className={`menu-btn ${isBurgerActive ? 'active' : ''}`}
-                    onClick={() => setIsBurgerActive(prev => !prev)}>
+                <div className={`menu-btn ${isBurgerActive ? 'active' : ''}`} onClick={toggleBurger}>
                     <span></span>
                 </div>
             </div>

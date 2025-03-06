@@ -1,4 +1,4 @@
-import error404 from './404.png';
+import error404 from '../../resources/404.png';
 
 const ErrorMessage = () => {
     return (

@@ -18,7 +18,7 @@ const CharactersItem = ({char, page = '/characters/'}) => {
                 </div>
                 <div className="characters-list__item-location">
                     <p>Last known location:</p>
-                    <span>{char.location}</span>
+                    <span>{char.location.name}</span>
                 </div>
             </div>
         </Link>
