@@ -9,6 +9,9 @@ import globals from 'globals';
 export default [
     js.configs.recommended,
     {
+        ignores: ['build'],
+    },
+    {
         files: ['**/*.js', '**/*.jsx'],
         languageOptions: {
             ecmaVersion: 'latest',
