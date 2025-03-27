@@ -42,9 +42,9 @@ Live demo: [Demo](https://rick-and-morty-react-app-ruby.vercel.app/).
     npm start
     ```
 
-## 📸 Screenshots
+## 📸 Project Demo
 
-Coming soon...
+![Project Demo](./public/project_demo.gif)
 
 ## 📜 License
 
